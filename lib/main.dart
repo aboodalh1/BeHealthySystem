@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:qrreader/core/util/app_router.dart';
 import 'package:qrreader/core/util/service_locator.dart';
 import 'package:qrreader/feature/Auth/presentation/view/sign_in_page.dart';
+import 'package:qrreader/feature/customers/presentation/view/customer_page_view.dart';
 import 'package:qrreader/feature/home_page/presentation/view/home_page.dart';
+import 'package:qrreader/feature/users/presentation/view/users_page.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +22,11 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Mono',
             scaffoldBackgroundColor: const Color(0xffF8F9FB)
       ),
-      home: const HomePage(),
+      home: const SignInPage(),
     );
   }
 }
+
 //
 // class QRCodeScannerApp extends StatefulWidget {
 //   const QRCodeScannerApp({super.key});

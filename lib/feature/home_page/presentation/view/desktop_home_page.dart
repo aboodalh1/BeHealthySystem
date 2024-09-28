@@ -1,27 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qrreader/constant.dart';
 import 'package:qrreader/core/util/screen_util.dart';
-import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
-import 'package:qrreader/feature/customers/presentation/view/desktop_customer_page.dart';
-import 'package:qrreader/feature/home_page/presentation/view/tablet_home_page.dart';
+import 'package:qrreader/feature/home_page/presentation/manger/home_cubit.dart';
 import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_elevated_button.dart';
 import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_search_bar.dart';
+
+import '../../../../core/widgets/desktop_drawer.dart';
 
 class DesktopHomePage extends StatelessWidget {
   const DesktopHomePage({required BuildContext context, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    ScreenSizeUtil.initSize(context);return Scaffold(
       backgroundColor: Colors.white,
       body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          HomePageDrawer(),
+          DesktopDrawer(),
           BlocProvider(
-            create: (context) => CustomerCubit(),
-            child: DesktopCustomerPage(),
+            create: (context) => HomeCubit(),
+            child: DesktopHomePageBody(),
           ),
         ],
       ),
@@ -29,133 +29,172 @@ class DesktopHomePage extends StatelessWidget {
   }
 }
 
-class HomePageBody extends StatelessWidget {
-  const HomePageBody({
+class DesktopHomePageBody extends StatelessWidget {
+  const DesktopHomePageBody({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0, right: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18.0),
-                child: CustomElevatedButton(
-                  title: 'Generate QR', onPressed: () {  },
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomElevatedButton(
+                    fill: true,
+                    title: 'Generate QR',
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('generate_qr');
+                    },
+                  ),
+                ],
               ),
+              SizedBox(
+                height: ScreenSizeUtil.screenHeight * 0.05,
+              ),
+              const CustomSearchBar(),
+              const SizedBox(
+                height: 20,
+              ),
+              DataTable(
+                  border: const TableBorder(
+                    horizontalInside:
+                        BorderSide(width: 0.54, color: Colors.black),
+                  ),
+
+                  columnSpacing: ScreenSizeUtil.screenWidth * 0.047,
+                  columns: const [
+                    DataColumn(
+                        label: Text(
+                      'Driver Name',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.black),
+                    )),
+                    DataColumn(
+                        label: Text('Driver ID',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
+                    DataColumn(
+                        label: Text('Customer Name',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
+                    DataColumn(
+                        label: Text('Bag ID',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
+                    DataColumn(
+                        label: Text('Status',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
+                    DataColumn(
+                        label: Text('Date',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
+                  ],
+                  rows:  [
+                    DataRow(cells: [
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'User Name',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'User ID',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'User Name',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'User ID',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: kAtStoreColor,
+                          borderRadius: BorderRadius.circular(3)
+                        ),
+                        child: Text(
+                            textAlign: TextAlign.center,
+                            'At Store',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                      )),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          'Position',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                    ])
+                  ])
             ],
           ),
-          SizedBox(
-            height: ScreenSizeUtil.screenHeight * 0.05,
-          ),
-          const CustomSearchBar(),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: ScreenSizeUtil.screenWidth * 0.02, vertical: 10),
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            height: ScreenSizeUtil.screenHeight * 0.06,
-            width: ScreenSizeUtil.screenWidth * 0.65,
-            decoration: BoxDecoration(
-              border: Border.all(color: kPrimaryColor),
-              borderRadius: BorderRadius.circular(4.85),
-              color: const Color(0xffF5F5F5),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                    width: ScreenSizeUtil.screenWidth * 0.09,
-                    child: customText(label: 'Driver Name')),
-                SizedBox(
-                    width: ScreenSizeUtil.screenWidth * 0.09,
-                    child: customText(label: 'Driver ID')),
-                SizedBox(
-                    width: ScreenSizeUtil.screenWidth * 0.1,
-                    child: customText(label: 'Customer Name')),
-                SizedBox(
-                    width: ScreenSizeUtil.screenWidth * 0.09,
-                    child: customText(label: 'Bag ID')),
-                customText(label: 'Status'),
-                const Spacer(),
-                SizedBox(
-                    width: ScreenSizeUtil.screenWidth * 0.14,
-                    child: customText(label: 'Date'))
-              ],
-            ),
-          ),
-          Container(
-            width: ScreenSizeUtil.screenWidth * 0.65,
-            child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) =>
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
-                      height: ScreenSizeUtil.screenHeight * 0.06,
-                      width: ScreenSizeUtil.screenWidth * 0.6,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.85),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.09,
-                              child: customText(
-                                  label: 'Driver Name AbdAllah',
-                                  color: Colors.black)),
-                          SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.09,
-                              child: customText(
-                                  label: 'Driver ID', color: Colors.black)),
-                          SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.1,
-                              child: customText(
-                                  label: 'Customer Name Ahmad Deeb',
-                                  color: Colors.black)),
-                          SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.08,
-                              child: customText(
-                                  label: '151818911', color: Colors.black)),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 3),
-                              decoration: BoxDecoration(
-                                  color: kAtCustomerColor,
-                                  borderRadius: BorderRadius.circular(2.75)),
-                              child: customText(
-                                  label: 'At Customer', color: Colors.black)),
-                          const Spacer(),
-                          SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.14,
-                              child: customText(
-                                  label: '2024-06-05 10:55',
-                                  color: Colors.black))
-                        ],
-                      ),
-                    ),
-                separatorBuilder: (context, index) =>
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      width: ScreenSizeUtil.screenWidth * 0.6,
-                      height: ScreenSizeUtil.screenHeight * 0.0007,
-                      decoration: const BoxDecoration(color: Colors.black),
-                    ),
-                itemCount: 6),
-          )
-        ],
+        ),
       ),
     );
   }
 
-  Text customText({required String label, color}) =>
-      Text(
+  Text customText({required String label, color}) => Text(
         label,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -170,10 +209,11 @@ class CustomTextButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback function;
 
-  const CustomTextButton({super.key,
-    required this.title,
-    required this.icon,
-    required this.function});
+  const CustomTextButton(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.function});
 
   @override
   Widget build(BuildContext context) {

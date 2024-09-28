@@ -16,80 +16,82 @@ class GenerateQRPage extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           GenerateQrCubit generateQrCubit = context.read<GenerateQrCubit>();
-          return Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.all(40),
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor,
-                    borderRadius: BorderRadius.circular(23.2),
-                  ),
-                  child: const Text(
-                    'Generate QR',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 18),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              generateQrCubit.isGenerateQr
-                  ? GeneratedQrContainer(generateQrCubit: generateQrCubit)
-                  : AddQrInfoContaier(generateQrCubit: generateQrCubit),
-              SizedBox(height: 20,),
-              generateQrCubit.isGenerateQr? ElevatedButton(
-                onPressed: () {
-                  generateQrCubit.clearQr();
-                },
-                child: const Text(
-                  'Clear',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: kPrimaryColor),
-                ),
-                style: ButtonStyle(
-                    surfaceTintColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 50)),
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: BorderSide(color: kPrimaryColor),
-                        borderRadius: BorderRadius.circular(16.34),
-                      ),
-                    )),
-              ):Container(),
-              Spacer(),
-              generateQrCubit.isGenerateQr? Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      generateQrCubit.printContainer();
-                    },
-                    child: const Text(
-                      'Print',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.white),
+          return Scaffold(
+            body: Column(
+              children: [
+                Container(
+                    margin: const EdgeInsets.all(40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: kSecondaryColor,
+                      borderRadius: BorderRadius.circular(23.2),
                     ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kPrimaryColor),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.8),
-                          ),
-                        )),
-                  ),
+                    child: const Text(
+                      'Generate QR',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 18),
+                    )),
+                const SizedBox(
+                  height: 20,
                 ),
-              ):Container()
-             ],
+                generateQrCubit.isGenerateQr
+                    ? GeneratedQrContainer(generateQrCubit: generateQrCubit)
+                    : AddQrInfoContaier(generateQrCubit: generateQrCubit),
+                const SizedBox(height: 20,),
+                generateQrCubit.isGenerateQr? ElevatedButton(
+                  onPressed: () {
+                    generateQrCubit.clearQr();
+                  },
+                  style: ButtonStyle(
+                      surfaceTintColor: MaterialStateProperty.all(Colors.white),
+                      padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 50)),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          side: const BorderSide(color: kPrimaryColor),
+                          borderRadius: BorderRadius.circular(16.34),
+                        ),
+                      )),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: kPrimaryColor),
+                  ),
+                ):Container(),
+                const Spacer(),
+                generateQrCubit.isGenerateQr? Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        generateQrCubit.printContainer();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.8),
+                            ),
+                          )),
+                      child: const Text(
+                        'Print',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ):Container()
+               ],
+            ),
           );
         },
       ),

@@ -10,9 +10,9 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   int currentIndex = 0;
-  List <Widget> screens=[
-      HomePage(),
-      ReportsPage(),
+  List<Widget> screens = [
+    HomePage(),
+    ReportsPage(),
     UsersPage(),
   ];
 }

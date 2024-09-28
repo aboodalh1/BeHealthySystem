@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:qrreader/core/util/function/navigation.dart';
-import 'package:qrreader/feature/home_page/presentation/view/home_page.dart';
-
+import 'package:qrreader/core/util/app_router.dart';
 import '../../../../../core/util/screen_util.dart';
 import '../../manger/auth_cubit.dart';
 import 'custom_text_field.dart';
@@ -87,7 +84,7 @@ class LoginCard extends StatelessWidget {
                       Color(0xff0F663C)),
                 ),
                 onPressed: () {
-                  navigateTo(context, HomePage());
+                  Navigator.of(context).pushNamed(AppRoutes.kHomePage);
                 },
                 child: const Text(
                   'Sign In',

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:qrreader/core/util/screen_util.dart';
-import 'package:qrreader/core/widgets/custom_under_line_field.dart';
 
-import '../../../../../constant.dart';
+import '../../../../../../constant.dart';
+import 'mobile_custom_underline_field.dart';
 
 
-class AddCustomerInformationCard extends StatelessWidget {
-  const AddCustomerInformationCard({super.key});
+
+class MobileAddCustomerInformationCard extends StatelessWidget {
+  const MobileAddCustomerInformationCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: 430,
+      height: 480,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
+      const EdgeInsets.only(right: 5, left: 5, top: 18.32, bottom: 5),
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(14.83)),
@@ -26,55 +27,55 @@ class AddCustomerInformationCard extends StatelessWidget {
             Icons.person,
             size: ScreenSizeUtil.screenWidth * 0.05,
           ),
-          const CustomUnderLineTextField(hint: 'Full name'),
-          const CustomUnderLineTextField(hint: 'Customer Num'),
-          const CustomUnderLineTextField(hint: 'Driver'),
-          const CustomUnderLineTextField(
+          const MobileCustomUnderLineTextField(hint: 'Full name'),
+          const MobileCustomUnderLineTextField(hint: 'Customer Num'),
+          const MobileCustomUnderLineTextField(hint: 'Driver'),
+          const MobileCustomUnderLineTextField(
             hint: 'Address',
           ),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: ScreenSizeUtil.screenWidth*0.069,
-                height: ScreenSizeUtil.screenWidth*0.02,
+                width: ScreenSizeUtil.screenWidth*0.08,
+                height: ScreenSizeUtil.screenWidth*0.025,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child:  Text(
-                    'Subscriber',
-                    style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.007,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  ),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
                       MaterialStateProperty.all(kPrimaryColor)),
+                  child:  Text(
+                    'Subscriber',
+                    style: TextStyle(
+                        fontSize: ScreenSizeUtil.screenWidth*0.009,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
               ),
               const SizedBox(
                 width: 5,
               ),
               Container(
-                width: ScreenSizeUtil.screenWidth*0.07,
-                height: ScreenSizeUtil.screenWidth*0.02,
+                width: ScreenSizeUtil.screenWidth*0.08,
+                height: ScreenSizeUtil.screenWidth*0.025,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text(
-                    'Subscriber',
-                    style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.007,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  ),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
                       MaterialStateProperty.all(kUnsubsicriber)),
+                  child: Text(
+                    'Subscriber',
+                    style: TextStyle(
+                        fontSize: ScreenSizeUtil.screenWidth*0.008,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
               ),
             ],

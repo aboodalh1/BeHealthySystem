@@ -1,64 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
-import 'package:qrreader/feature/customers/presentation/view/widgets/add_customer_info_card.dart';
+import 'package:qrreader/feature/customers/presentation/view/widgets/tablet/tablet_add_customer_info_card.dart';
 
-import '../../../../../constant.dart';
+import '../../../../../../constant.dart';
 
-class CustomerCard extends StatelessWidget {
-  const CustomerCard({
+class MobileCustomerCard extends StatelessWidget {
+  const MobileCustomerCard({
     super.key, required this.customerCubit
   });
   final CustomerCubit customerCubit;
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
-    return customerCubit.isEdit? AddCustomerInformationCard(): Container(
+    return customerCubit.isEdit? TabletAddCustomerInformationCard(): Container(
       height: 430,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
+      const EdgeInsets.only(right: 5, left: 5, top: 10, bottom: 10),
       margin: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(14.83)),
           border: Border.symmetric(
-              horizontal: BorderSide(width: 2.5, color: kPrimaryColor),
-              vertical: BorderSide(width: 20, color: kPrimaryColor)),
+              horizontal: BorderSide(width: 2, color: kPrimaryColor),
+              vertical: BorderSide(width: 5, color: kPrimaryColor)),
           color: Colors.white),
       child: Column(
         children: [
-          SizedBox(height: ScreenSizeUtil.screenWidth*0.019,),
+          SizedBox(height: ScreenSizeUtil.screenWidth*0.02,),
            Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.05,
+            size: ScreenSizeUtil.screenWidth * 0.04,
           ),
           const SizedBox(
             height: 12.36,
           ),
            Text(
             'Taim Hasan',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.01, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.025, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5.21,
           ),
            Text(
             'Number Cus: 096 6554 253',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.008, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.018, fontWeight: FontWeight.w400),
           ),
-          const SizedBox(
-            height: 18.27,
+          SizedBox(
+            height: ScreenSizeUtil.screenWidth*0.01,
           ),
           Container(
-            height: ScreenSizeUtil.screenWidth*0.018 ,
+            height: ScreenSizeUtil.screenWidth*0.04 ,
             child: ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                padding: MaterialStateProperty.all(EdgeInsets.all(2)),
                   backgroundColor: MaterialStateProperty.all(kPrimaryColor)),
               child:  Text(
                 'Subscriber',
                 style: TextStyle(
-                    fontSize: ScreenSizeUtil.screenWidth*0.009,
+                    fontSize: ScreenSizeUtil.screenWidth*0.018,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
               ),
@@ -69,13 +69,13 @@ class CustomerCard extends StatelessWidget {
           ),
            Text(
             'Driver : Saad Ph',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.009,),
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.02,),
           ),
           const SizedBox(
             height: 3,
           ),
            Text('Address : Damascus',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.009,)),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.02,)),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -84,19 +84,12 @@ class CustomerCard extends StatelessWidget {
                 onTap: (){
                 customerCubit.changeToEditCard();
                 },
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black)),
-                  child:  Center(
-                      child: Icon(
-                        Icons.edit,
-                        color: kPrimaryColor,
-                        size: ScreenSizeUtil.screenWidth*0.01,
-                      )),
-                ),
+                child: Center(
+                    child: Icon(
+                      Icons.edit,
+                      color: kPrimaryColor,
+                      size: ScreenSizeUtil.screenWidth*0.02,
+                    )),
               ),
             ],
           )

@@ -12,11 +12,13 @@ class CustomUnderLineTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSizeUtil.initSize(context);
     return Container(
+      height: ScreenSizeUtil.screenWidth * 0.031,
       width: ScreenSizeUtil.screenWidth * 0.1,
       child: TextFormField(
         decoration:
-        InputDecoration(hintText: hint, border: UnderlineInputBorder()),
+        InputDecoration(hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.008),border: UnderlineInputBorder()),
       ),
     );
   }

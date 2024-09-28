@@ -12,19 +12,27 @@ class CustomerPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
-    return LayoutBuilder(builder: (context, constraints)
-    {
-      if (ScreenSizeUtil.screenWidth <= 600) {
-        return BlocProvider(
-          create: (context) => CustomerCubit(),
-          child: MobileCustomerPage(),
+    return BlocProvider(
+      create: (context) => CustomerCubit(),
+      child: LayoutBuilder(builder: (context, constraints) {
+        if (ScreenSizeUtil.screenWidth <= 600) {
+          return BlocProvider.value(
+            value: context.read<CustomerCubit>(),
+            child: const MobileCustomerPage(),
+          );
+        }
+        if (ScreenSizeUtil.screenWidth <= 1000) {
+          return BlocProvider.value(
+            value: context.read<CustomerCubit>(),
+            child: TabletCustomerPage(),
+          );
+        }
+        return BlocProvider.value(
+          value: context.read<CustomerCubit>(),
+          child: DesktopCustomerPage(),
         );
       }
-      if (ScreenSizeUtil.screenWidth <= 1000) {
-        return TabletCustomerPage();
-      }
-      return DesktopCustomerPage();
-      }
+      ),
     );
   }
-  }
+}

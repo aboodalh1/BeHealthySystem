@@ -10,9 +10,10 @@ class CustomSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ScreenSizeUtil.screenHeight * 0.06,
+      height: ScreenSizeUtil.screenHeight * 0.065,
       width: ScreenSizeUtil.screenWidth * 0.32,
       child: TextFormField(
+        style: TextStyle(height: 1.2),
           decoration: const InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -26,7 +27,7 @@ class CustomSearchBar extends StatelessWidget {
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black),
                   borderRadius: BorderRadius.all(
-                    Radius.circular(11),
+                    Radius.circular(15),
                   )))),
     );
   }

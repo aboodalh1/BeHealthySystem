@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:qrreader/constant.dart';
 
 import '../../../../../core/util/screen_util.dart';
 
-class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({
+class TabletCustomSearchBar extends StatelessWidget {
+  const TabletCustomSearchBar({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ScreenSizeUtil.screenHeight * 0.060<120?70: ScreenSizeUtil.screenHeight * 0.060,
-      width: ScreenSizeUtil.screenWidth * 0.32,
+      height: 40,
+      width: ScreenSizeUtil.screenWidth * 0.3,
       child: TextFormField(
-        style: TextStyle(height: 1.2),
+          cursorRadius: Radius.circular(21),
+          cursorColor: kPrimaryColor,
+          style: const TextStyle(height: 1,fontSize: 14),
           decoration: const InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 2,vertical: 0),
               filled: true,
               fillColor: Colors.white,
               prefixIcon: Padding(
@@ -22,6 +26,7 @@ class CustomSearchBar extends StatelessWidget {
                 child: Icon(
                   Icons.search,
                   color: Colors.black,
+                  size: 20,
                 ),
               ),
               border: OutlineInputBorder(

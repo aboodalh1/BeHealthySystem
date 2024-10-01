@@ -16,7 +16,7 @@ class DesktopDrawer extends StatelessWidget {
         Container(
           color: kPrimaryColor,
           height: double.infinity,
-          width: ScreenSizeUtil.screenWidth * 0.22,
+          width: ScreenSizeUtil.screenWidth * 0.25,
           child: Column(
             children: [
               const Padding(

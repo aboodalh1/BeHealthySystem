@@ -23,6 +23,7 @@ class TabletHomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSizeUtil.initSize(context);
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
@@ -47,75 +48,58 @@ class TabletHomePageBody extends StatelessWidget {
               const SizedBox(
                 height: 110,
               ),
+
               DataTable(
+                  headingRowColor: MaterialStateProperty.all(kPrimaryColor),
+                  headingTextStyle: TextStyle(color: Colors.white),
                   border: const TableBorder(
                     horizontalInside:
                     BorderSide(width: 0.54, color: Colors.black),
                   ),
-                  columnSpacing: ScreenSizeUtil.screenWidth * 0.03,
+
+                  columnSpacing: ScreenSizeUtil.screenWidth * 0.045,
                   columns: [
                     DataColumn(
-                        label: TabletCustomText(title: 'Driver Name',)),
+                        label: TabletCustomText(title: 'Driver Name', isHeader: true,)),
                     DataColumn(
-                        label: TabletCustomText(title: 'Driver ID',)),
+                        label: TabletCustomText(title: 'Driver ID', isHeader: true,)),
                     DataColumn(
-                        label: TabletCustomText(title: 'Customer Name',)),
+                        label: TabletCustomText(title: 'Customer Name', isHeader: true,)),
                     DataColumn(
-                        label: TabletCustomText(title: 'Bag ID',)),
+                        label: TabletCustomText(title: 'Bag ID', isHeader: true,)),
                     DataColumn(
-                        label: TabletCustomText(title: 'Status',)),
+                        label: TabletCustomText(title: 'Status', isHeader: true,)),
                     DataColumn(
-                        label: TabletCustomText(title: 'Date',)),
-                  ],
-                  rows:  []),
-              DataTable(
-                  border: const TableBorder(
-                    horizontalInside:
-                    BorderSide(width: 0.54, color: Colors.black),
-                  ),
-                  columnSpacing: ScreenSizeUtil.screenWidth * 0.03,
-                  columns: [
-                    DataColumn(
-                        label: TabletCustomText(title: 'Driver Name',)),
-                    DataColumn(
-                        label: TabletCustomText(title: 'Driver ID',)),
-                    DataColumn(
-                        label: TabletCustomText(title: 'Customer Name',)),
-                    DataColumn(
-                        label: TabletCustomText(title: 'Bag ID',)),
-                    DataColumn(
-                        label: TabletCustomText(title: 'Status',)),
-                    DataColumn(
-                        label: TabletCustomText(title: 'Date',)),
+                        label: TabletCustomText(title: 'Date', isHeader: true,)),
                   ],
                   rows:  [
                     DataRow(cells: [
-                      const DataCell(TabletCustomText(title: 'Driver Name')),
-                      const DataCell(TabletCustomText(title: 'Driver ID')),
-                      const DataCell(TabletCustomText(title: 'Customer Name')),
+                      const DataCell(TabletCustomText(title: 'Driver Name', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: 'Driver ID', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: 'Customer Name', isHeader: false,)),
                       DataCell(Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: kAtStoreColor,
                               borderRadius: BorderRadius.circular(3)
                           ),
-                          child: TabletCustomText(title: 'Bag ID'))),
-                      const DataCell(TabletCustomText(title: 'Status')),
-                      const DataCell(TabletCustomText(title: '2024-06-05')),
+                          child: TabletCustomText(title: 'Bag ID', isHeader: false,))),
+                      const DataCell(TabletCustomText(title: 'Status', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: '2024-06-05', isHeader: false,)),
                     ]),
                     DataRow(cells: [
-                      const DataCell(TabletCustomText(title: 'Driver Name')),
-                      const DataCell(TabletCustomText(title: 'Driver ID')),
-                      const DataCell(TabletCustomText(title: 'Customer Name')),
+                      const DataCell(TabletCustomText(title: 'Driver Name', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: 'Driver ID', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: 'Customer Name', isHeader: false,)),
                       DataCell(Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             color: kAtStoreColor,
                             borderRadius: BorderRadius.circular(3)
                         ),
-                        child: TabletCustomText(title: 'Bag ID'))),
-                      const DataCell(TabletCustomText(title: 'Status')),
-                      const DataCell(TabletCustomText(title: '2024-06-05')),
+                        child: TabletCustomText(title: 'Bag ID', isHeader: false,))),
+                      const DataCell(TabletCustomText(title: 'Status', isHeader: false,)),
+                      const DataCell(TabletCustomText(title: '2024-06-05', isHeader: false,)),
                     ])
                   ])
             ],
@@ -128,16 +112,18 @@ class TabletHomePageBody extends StatelessWidget {
 
 class TabletCustomText extends StatelessWidget {
   const TabletCustomText({
-    super.key, required this.title,
+    super.key, required this.title, required this.isHeader,
     
   });
   final String title;
+  final bool isHeader;
   @override
   Widget build(BuildContext context) {
+    ScreenSizeUtil.initSize(context);
     return Text(
       title,
       style: TextStyle(
-          fontWeight: FontWeight.w400, color: Colors.black,
+          fontWeight: FontWeight.w400, color:isHeader? Colors.white:Colors.black,
           fontSize: ScreenSizeUtil.screenWidth*0.017
       ),
     );

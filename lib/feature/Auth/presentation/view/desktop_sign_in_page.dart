@@ -11,6 +11,7 @@ class DesktopSignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSizeUtil.initSize(context);
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {

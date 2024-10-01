@@ -99,6 +99,7 @@ class LoginCard extends StatelessWidget {
               height: 15,
             ),
             CustomTextField(
+              isCenter:false,
               isTablet: true,
               controller: authCubit.firstNameController,
               label: 'Enter phone number',
@@ -107,6 +108,7 @@ class LoginCard extends StatelessWidget {
               height: 20,
             ),
             CustomTextField(
+              isCenter:false,
               isTablet: true,
               controller: authCubit.usernameController,
               label: 'Enter password',

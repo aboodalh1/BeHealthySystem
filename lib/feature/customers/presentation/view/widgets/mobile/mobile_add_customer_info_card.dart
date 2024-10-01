@@ -13,9 +13,8 @@ class MobileAddCustomerInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: 480,
       padding:
-      const EdgeInsets.only(right: 5, left: 5, top: 18.32, bottom: 5),
+      const EdgeInsets.only(right: 10, left: 10, top: 18.32, bottom: 5),
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(14.83)),

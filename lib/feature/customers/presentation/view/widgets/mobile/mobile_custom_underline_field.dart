@@ -15,12 +15,13 @@ class MobileCustomUnderLineTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: ScreenSizeUtil.screenWidth * 0.07,
-      width: ScreenSizeUtil.screenWidth * 0.2,
+      height: 40,
+      margin: EdgeInsets.symmetric(horizontal: 10,),
       child: TextFormField(
-        style: TextStyle(fontSize:8,height: 3),
+        cursorRadius: Radius.circular(21),
+        style: TextStyle(fontSize:12,height: 3),
         decoration:
-        InputDecoration(hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.025,height: 0.2),border: UnderlineInputBorder()),
+        InputDecoration(hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.022),border: UnderlineInputBorder()),
       ),
     );
   }

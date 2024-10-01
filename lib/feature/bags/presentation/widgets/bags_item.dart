@@ -13,9 +13,8 @@ class AvailableBagsItem extends StatelessWidget {
     return Column(
       children: [
         Image.asset(AssetsLoader.availableBag),
-        SizedBox(height: 10,),
+        SizedBox(height: 5,),
         Text('ID: 314423 \n Available',textAlign: TextAlign.center,style: TextStyle(color: kPrimaryColor),),
-        SizedBox(height: 10,),
       ],
     );
   }
@@ -32,7 +31,6 @@ class UnAvailableBagsItem extends StatelessWidget {
         Image.asset(AssetsLoader.unAvailableBag),
         SizedBox(height: 10,),
         Text('ID: 314423 \n Available',textAlign: TextAlign.center,style: TextStyle(color: kUnsubsicriber),),
-        SizedBox(height: 10,),
       ],
     );
   }

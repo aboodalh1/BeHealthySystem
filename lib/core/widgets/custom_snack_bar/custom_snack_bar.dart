@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrreader/constant.dart';
 
-import '../../util/screen_util.dart';
 
 void customSnackBar(context,String text){
   ScaffoldMessenger.of(context).clearSnackBars();

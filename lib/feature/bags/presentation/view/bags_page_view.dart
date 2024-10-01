@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qrreader/feature/bags/presentation/manger/bags_cubit.dart';
-import 'package:qrreader/feature/bags/presentation/view/desktop_bags_pag.dart';
+import 'package:qrreader/feature/bags/presentation/view/desktop_bags_page.dart';
 import 'package:qrreader/feature/bags/presentation/view/mobile_bags_page.dart';
 import 'package:qrreader/feature/bags/presentation/view/tablet_bags_page.dart';
 

@@ -39,13 +39,16 @@ class DesktopHomePageBody extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0, right: 20),
+          padding: const EdgeInsets.only(top: 50.0, right: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  const CustomSearchBar(),
+                  SizedBox(width: ScreenSizeUtil.screenWidth*0.18,),
                   CustomElevatedButton(
                     fill: true,
                     title: 'Generate QR',
@@ -58,49 +61,51 @@ class DesktopHomePageBody extends StatelessWidget {
               SizedBox(
                 height: ScreenSizeUtil.screenHeight * 0.05,
               ),
-              const CustomSearchBar(),
+
               const SizedBox(
                 height: 20,
               ),
               DataTable(
+                headingRowColor: MaterialStateProperty.all(kPrimaryColor),
+                  headingTextStyle: TextStyle(color: Colors.white),
                   border: const TableBorder(
                     horizontalInside:
                         BorderSide(width: 0.54, color: Colors.black),
                   ),
 
-                  columnSpacing: ScreenSizeUtil.screenWidth * 0.047,
+                  columnSpacing: ScreenSizeUtil.screenWidth * 0.04,
                   columns: const [
                     DataColumn(
                         label: Text(
                       'Driver Name',
                       style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.black),
+                          fontWeight: FontWeight.w500, color: Colors.white),
                     )),
                     DataColumn(
                         label: Text('Driver ID',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black))),
+                                color: Colors.white))),
                     DataColumn(
                         label: Text('Customer Name',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black))),
+                                color: Colors.white))),
                     DataColumn(
                         label: Text('Bag ID',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black))),
+                                color: Colors.white))),
                     DataColumn(
                         label: Text('Status',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black))),
+                                color: Colors.white))),
                     DataColumn(
                         label: Text('Date',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black))),
+                                color: Colors.white))),
                   ],
                   rows:  [
                     DataRow(cells: [

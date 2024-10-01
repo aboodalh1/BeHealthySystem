@@ -23,7 +23,7 @@ class UsersPage extends StatelessWidget {
       if (ScreenSizeUtil.screenWidth <= 1000) {
         return BlocProvider(
           create: (context) => UserCubit(),
-          child: const DesktopUsersPage(),
+          child: const TabletUsersPage(),
         );
       } else {
         return BlocProvider(

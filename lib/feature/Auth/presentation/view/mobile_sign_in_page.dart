@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qrreader/constant.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
 import '../../../../core/util/screen_util.dart';
 import '../../../home_page/presentation/view/home_page.dart';
@@ -35,13 +36,14 @@ class LoginCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSizeUtil.initSize(context);
     return Container(
       height: ScreenSizeUtil.screenHeight * 0.55,
       width: ScreenSizeUtil.screenWidth * 0.50,
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: kPrimaryColor,
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: SingleChildScrollView(
@@ -52,6 +54,7 @@ class LoginCard extends StatelessWidget {
             Text(
               "Sign In",
               style: TextStyle(
+                color: Colors.white,
                   fontSize: ScreenSizeUtil.screenWidth * 0.035,
                   fontWeight: FontWeight.w400),
             ),
@@ -59,6 +62,7 @@ class LoginCard extends StatelessWidget {
               height: 15,
             ),
             CustomTextField(
+              isCenter:false,
               isTablet: true,
               controller: authCubit.firstNameController,
               label: 'Enter phone number',
@@ -66,7 +70,8 @@ class LoginCard extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomTextField(
+            CustomTextField
+              ( isCenter:false,
               isTablet: true,
               controller: authCubit.usernameController,
               label: 'Enter password',
@@ -89,7 +94,7 @@ class LoginCard extends StatelessWidget {
                   textAlign: TextAlign.end,
                   style: TextStyle(
                       fontSize: ScreenSizeUtil.screenWidth * 0.02,
-                      color: Colors.black45,
+                      color: Colors.white,
                       fontWeight: FontWeight.w500),
                 ),
               ],
@@ -106,13 +111,13 @@ class LoginCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)),
                   ),
                   backgroundColor:
-                      const MaterialStatePropertyAll(Color(0xff0F663C)),
+                      const MaterialStatePropertyAll(Color(0xffFFFFFF)),
                 ),
                 onPressed: () {navigateTo(context, HomePage());},
                 child: Text(
                   'Sign In',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: kPrimaryColor,
                       fontSize: ScreenSizeUtil.screenWidth * 0.02,
                       fontWeight: FontWeight.w400),
                 ))

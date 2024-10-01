@@ -24,7 +24,7 @@ class AddQrInfoContaier extends StatelessWidget {
         border: Border.all(width: 3, color: kPrimaryColor),
         boxShadow: [
           BoxShadow(
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
               blurRadius: 3.36,
               color: Colors.black.withOpacity(0.25))
         ],
@@ -33,7 +33,7 @@ class AddQrInfoContaier extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            decoration: BoxDecoration(color: Color(0xffF2F2F2)),
+            decoration: const BoxDecoration(color: Color(0xffF2F2F2)),
             height: 200,
             width: 200,
             child: const Center(
@@ -42,7 +42,7 @@ class AddQrInfoContaier extends StatelessWidget {
                   textAlign: TextAlign.center,
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -53,16 +53,18 @@ class AddQrInfoContaier extends StatelessWidget {
                 Container(
                   width: ScreenSizeUtil.screenWidth * 0.15,
                   child: CustomTextField(
+                    isCenter:true,
                       isTablet: false,
                       controller: generateQrCubit.customerNameController,
                       label: 'Customer Name'),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 41,
                 ),
                 Container(
                   width: ScreenSizeUtil.screenWidth * 0.15,
                   child: CustomTextField(
+                      isCenter:true,
                       isTablet: false,
                       controller: generateQrCubit.bagIDController,
                       label: 'Bag ID'),
@@ -70,7 +72,7 @@ class AddQrInfoContaier extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
@@ -87,12 +89,12 @@ class AddQrInfoContaier extends StatelessWidget {
             style: ButtonStyle(
                 surfaceTintColor: MaterialStateProperty.all(Colors.white),
                 padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 50)),
+                    const EdgeInsets.symmetric(horizontal: 50)),
                 backgroundColor: MaterialStateProperty.all(Colors.white),
                 foregroundColor: MaterialStateProperty.all(Colors.white),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    side: BorderSide(color: kPrimaryColor),
+                    side: const BorderSide(color: kPrimaryColor),
                     borderRadius: BorderRadius.circular(16.34),
                   ),
                 )),

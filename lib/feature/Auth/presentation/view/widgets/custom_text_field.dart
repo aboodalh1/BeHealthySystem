@@ -7,8 +7,9 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final Widget ?suffixIcon;
   final bool isTablet;
+  final bool isCenter;
   const CustomTextField(
-      {super.key,required this.isTablet, required this.controller, required this.label, this.suffixIcon});
+      {super.key,required this.isTablet, required this.controller, required this.label, this.suffixIcon, required this.isCenter});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,8 @@ class CustomTextField extends StatelessWidget {
       elevation: 4,
       child: TextFormField(
           controller: controller,
-          textAlign: TextAlign.center,
+          textAlign: isCenter? TextAlign.center:TextAlign.start,
           decoration: InputDecoration(
-
               suffixIcon: suffixIcon,
               fillColor: const Color(0xFFf2f2f2),
               filled: true,
@@ -28,7 +28,7 @@ class CustomTextField extends StatelessWidget {
               hintStyle: TextStyle(
                   color: Colors.black.withOpacity(0.5),
                   fontWeight: FontWeight.w500,
-                  fontSize: isTablet? ScreenSizeUtil.screenWidth*0.015:18),
+                  fontSize: isTablet? ScreenSizeUtil.screenWidth*0.015:16),
               focusColor: Colors.blue,
               enabledBorder:  OutlineInputBorder(
                 borderRadius: BorderRadius.circular(23.6),

@@ -27,7 +27,7 @@ class DesktopUsersPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CustomElevatedButton(title: 'Add User', onPressed: () {},fill: true,),
+                        CustomElevatedButton(title: 'Add User', onPressed: () {},fill: true,platform: 'desktop',),
                       ],
                     ),
                     const SizedBox(
@@ -38,7 +38,7 @@ class DesktopUsersPage extends StatelessWidget {
                       children: [
                         const CustomSearchBar(),
                         const SizedBox(width: 20,),
-                        CustomElevatedButton(title: 'Filter', onPressed: (){},fill: false,)
+                        CustomElevatedButton(platform: 'desktop',title: 'Filter', onPressed: (){},fill: false,)
                       ],
                     ),
                     const SizedBox(

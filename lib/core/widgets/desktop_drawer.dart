@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/app_router.dart';
+import 'package:qrreader/core/util/asset_loader.dart';
 
 import '../../constant.dart';
 import '../util/screen_util.dart';
@@ -16,19 +18,14 @@ class DesktopDrawer extends StatelessWidget {
         Container(
           color: kPrimaryColor,
           height: double.infinity,
-          width: ScreenSizeUtil.screenWidth * 0.25,
+          width: 90.w,
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text('Be Healthy',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w300)),
-              ),
-              const SizedBox(
-                height: 50,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.0.w,vertical: 15.h),
+                child: Text("Be Healthy",style: TextStyle(
+                    fontSize: 10.sp,color: Colors.white
+                ),),
               ),
               CustomTextButton(
                 onPressed: (){
@@ -104,7 +101,7 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+        height: 60.h,
       child: TextButton(
           onPressed: onPressed ,
           child: Row(
@@ -112,14 +109,15 @@ class CustomTextButton extends StatelessWidget {
               Icon(
                 icon,
                 color: Colors.white,
+                size: 8.sp,
               ),
-              const SizedBox(
-                width: 10,
+               SizedBox(
+                width: 5.w,
               ),
               Text(
                 title,
-                style: const TextStyle(
-                    fontSize: 20,
+                style: TextStyle(
+                    fontSize: 6.sp,
                     fontWeight: FontWeight.w200,
                     color: Colors.white),
               )

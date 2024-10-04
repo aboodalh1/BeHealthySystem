@@ -11,3 +11,4 @@ final class SignInFailureState extends AuthState{}
 final class SignUpLoadingState extends AuthState{}
 final class SignUpSuccessState extends AuthState{}
 final class SignUpFailureState extends AuthState{}
+final class ChangePasswordSecureState extends AuthState{}

@@ -11,7 +11,6 @@ import 'package:qrreader/feature/Auth/presentation/view/tablet_sign_in_page.dart
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);

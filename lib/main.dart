@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/app_router.dart';
 import 'package:qrreader/core/util/service_locator.dart';
 import 'package:qrreader/feature/Auth/presentation/view/sign_in_page.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   runApp(const MyApp());
@@ -11,16 +12,23 @@ Future<void> main() async{
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: AppRoutes.routes,
-      theme: ThemeData(
-        fontFamily: 'Mono',
-            scaffoldBackgroundColor: const Color(0xffF8F9FB)
-      ),
-      home: const SignInPage(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 660),
+        child: MaterialApp(
+          routes: AppRoutes.routes,
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              titleTextStyle: TextStyle(color: Colors.white),
+              iconTheme: IconThemeData(color: Colors.white)
+            ),
+              fontFamily: 'Mono',
+              scaffoldBackgroundColor: const Color(0xffF8F9FB)
+          ),
+          home: const SignInPage(),
+        ));
   }
 }
 

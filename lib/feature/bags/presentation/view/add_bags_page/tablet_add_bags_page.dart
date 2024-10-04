@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qrreader/core/util/screen_util.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/tablet_widgets/tablet_custom_drawer.dart';
+import 'package:qrreader/feature/bags/presentation/manger/bags_cubit.dart';
 
 import '../../../../../constant.dart';
-import '../../../../../core/widgets/tablet/tablet_custom_search_field.dart';
-import '../../../../home_page/presentation/view/desktop_home_page.dart';
-import '../../../../home_page/presentation/view/widgets/custom_elevated_button.dart';
-import '../../widgets/bags_item.dart';
+import '../../../../../core/util/asset_loader.dart';
+import '../../widgets/custom_add_bags_button.dart';
 
 
 class TabletAddBagsPage extends StatelessWidget {
@@ -13,100 +15,87 @@ class TabletAddBagsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
+
+    return BlocConsumer<BagsCubit, BagsState>(
+  listener: (context, state) {},
+  builder: (context, state) {
+    BagsCubit bagsCubit = context.read<BagsCubit>();
     return Scaffold(
-        appBar: AppBar(backgroundColor: kPrimaryColor,),
-        drawer: Row(
+        appBar: AppBar(
+          title: Text("Edit Bags Number",),
+          backgroundColor: kPrimaryColor,),
+        drawer:TabletDrawer(),
+        body:   Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: kPrimaryColor,
-              height: double.infinity,
-              width: ScreenSizeUtil.screenWidth * 0.3,
+              width:200.w,
+              height: 360.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14.43),
+                border: Border.all(color: kPrimaryColor, width: 3),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 30.h ),
               child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(AssetsLoader.bags,width: 160.w,height: 160.h,),
+                    SizedBox(height: 15.h,),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Quantity',style: TextStyle(color: kPrimaryColor,fontSize: 8.sp,),),
+                          SizedBox(width: 20.h,),
+                          Column(
+                            children: [
+                              IconButton(onPressed: (){}, icon: Icon(Icons.keyboard_arrow_up,size: 5.sp,)),
+                              SizedBox(height:20.h,width:20.w,child: TextField(
+                                style: TextStyle(height: 0.2.h,fontSize: 6.sp,color: kPrimaryColor),
+                                cursorColor: kPrimaryColor,
+                                controller: TextEditingController(text: '1'),
+                                textAlign: TextAlign.center,
+                                cursorHeight: 10.h,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(4),
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                decoration: InputDecoration(
+                                  hoverColor: kPrimaryColor,
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 5.w),
+                                ),
+                              )),
+                              IconButton(onPressed: (){
+                                bagsCubit.increaseBagsCounter();
+                              }, icon: Icon(Icons.keyboard_arrow_down,size: 5.sp,))
+                            ],
+                          )
+                        ]
+
+                    )
+                  ]
+              ),
+            ),
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.w),
+              child: Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text('Be Healthy',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w300)),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextButton(
-                    function: () {},
-                    icon: Icons.home_filled,
-                    title: 'Home',
-                  ),
-                  CustomTextButton(
-                    function: () {},
-                    icon: Icons.person,
-                    title: 'Customers',
-                  ),
-                  CustomTextButton(
-                    function: () {},
-                    icon: Icons.report,
-                    title: 'Reports',
-                  ),
-                  CustomTextButton(
-                    function: () {},
-                    icon: Icons.shopping_bag_rounded,
-                    title: 'Bags',
-                  ),
-                  const Spacer(),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Divider(
-                      height: 0.2,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: CustomTextButton(
-                      function: () {
-                        Navigator.of(context).pushNamed('sign_in_page');
-                      },
-                      title: "Sign out",
-                      icon: Icons.login,
-                    ),
-                  )
+                  Container(
+                      width:50.w,
+                      child: CustomAddBagsButton(title: 'Done', onPressed: (){}, doneOrCancel: true)),
+                  Spacer(),
+                  Container(
+                      width:50.w,
+                      child: CustomAddBagsButton(title: 'Cancel', onPressed: (){}, doneOrCancel: false, )),
                 ],
               ),
             )
           ],
-        ),
-        body: Expanded(child:
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 38.0,right: 20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: ScreenSizeUtil.screenWidth*0.25,),
-                    const Spacer(),
-                    const TabletCustomSearchBar(),
-                    const Spacer(),
-                    Container(width: ScreenSizeUtil.screenWidth*0.18,child: CustomElevatedButton(platform: 'tablet',title: 'Add Bags', onPressed: (){}, fill: true))
-                  ],
-                ),
-                const SizedBox(height: 20,),
-                SizedBox(
-                  height: ScreenSizeUtil.screenHeight*0.9,
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,mainAxisExtent: 180),
-                      itemBuilder: (context,index)=>index%2==0?const AvailableBagsItem():const UnAvailableBagsItem()),
-                )
-              ],
-            ),
-          ),
-        ))
+        )
     );
+  },
+);
   }
 }

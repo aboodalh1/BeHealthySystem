@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/core/widgets/custom_under_line_field.dart';
 
 import '../../../../../constant.dart';
+import '../../../../home_page/presentation/view/widgets/custom_elevated_button.dart';
+import '../../manger/customer_cubit.dart';
 
 
 class AddCustomerInformationCard extends StatelessWidget {
-  const AddCustomerInformationCard({super.key});
-
+  const AddCustomerInformationCard({super.key, required this.customerCubit});
+  final CustomerCubit customerCubit;
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: 430,
+      height: 440.h,
+      width: 390.w,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
-      margin: const EdgeInsets.all(10),
+      EdgeInsets.only(right: 5.w, left: 5.w, top: 20.h, bottom: 10.h),
+      margin:  EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(14.83)),
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           border: Border.all(width: 2, color: kPrimaryColor),
           color: Colors.white),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:[
+              SizedBox(
+                  height: 20,
+                  width: 20.w,
+                  child: CustomElevatedButton(platform: 'desktop',title: 'Save', onPressed: (){ customerCubit.changeToEditCard();}, fill: true,))
+            ] ,
+          ),
           Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.05,
+            size: 16.sp,
           ),
           const CustomUnderLineTextField(hint: 'Full name'),
           const CustomUnderLineTextField(hint: 'Customer Num'),
@@ -32,49 +45,48 @@ class AddCustomerInformationCard extends StatelessWidget {
           const CustomUnderLineTextField(
             hint: 'Address',
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: ScreenSizeUtil.screenWidth*0.069,
-                height: ScreenSizeUtil.screenWidth*0.02,
+              SizedBox(
+                width: 20.w,
+                height: 25,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child:  Text(
-                    'Subscriber',
-                    style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.007,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                  ),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
                       MaterialStateProperty.all(kPrimaryColor)),
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: ScreenSizeUtil.screenWidth*0.07,
-                height: ScreenSizeUtil.screenWidth*0.02,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
+                  child:  Text(
                     'Subscriber',
                     style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.007,
+                        fontSize: 2.5.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),
+                ),
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              SizedBox(
+                width: 20.w,
+                height: 25,child: ElevatedButton(
+                  onPressed: () {},
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
                       MaterialStateProperty.all(kUnsubsicriber)),
+                  child: Text(
+                    'Subscriber',
+                    style: TextStyle(
+                        fontSize: 2.5.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
               ),
             ],

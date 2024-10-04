@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/title_on_image.dart';
 import 'package:qrreader/feature/home_page/presentation/view/home_page.dart';
 
 import '../../../../core/util/asset_loader.dart';
-import '../../../../core/util/screen_util.dart';
 import '../manger/auth_cubit.dart';
 import 'widgets/custom_text_field.dart';
 
@@ -13,7 +14,6 @@ class TabletSignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -24,37 +24,16 @@ class TabletSignInPage extends StatelessWidget {
             alignment: AlignmentDirectional.topCenter,
             children: [
               Stack(
-                alignment: AlignmentDirectional.topCenter,
+                alignment: Alignment.topCenter,
                 children: [
-                  Image.asset(AssetsLoader.loginPic),
-                  Image.asset(AssetsLoader.loginPicShadow),
-                  Positioned(
-                    top: ScreenSizeUtil.screenHeight*0.065,
-                    child: Center(
-                      child: const Column(
-                        children: [
-                          Text(
-                            'Welcome',
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            'Hi, enter your details to get sign in into your account',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: LoginCard(authCubit: authCubit,context: context,),
-                  )
+                  Image.asset(AssetsLoader.loginPic,scale: 0.883,),
+                  Image.asset(AssetsLoader.loginPicShadow,),
+                  TitleOnImage(),
+              Center(
+                child: TabletLoginCard(authCubit: authCubit,context: context,),
+              )
                 ],
+
               ),
             ],
           ),
@@ -64,8 +43,10 @@ class TabletSignInPage extends StatelessWidget {
   }
 }
 
-class LoginCard extends StatelessWidget {
-  const LoginCard({
+
+
+class TabletLoginCard extends StatelessWidget {
+  const TabletLoginCard({
     super.key,
     required this.authCubit,
     context
@@ -76,13 +57,13 @@ class LoginCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.55,
-      width: MediaQuery.of(context).size.width * 0.50,
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+      height: 380.h,
+      width: 160.w,
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(15.0.r),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -92,20 +73,20 @@ class LoginCard extends StatelessWidget {
             Text(
               "Sign In",
               style: TextStyle(
-                  fontSize: ScreenSizeUtil.screenWidth * 0.035,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400),
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               isCenter:false,
               isTablet: true,
               controller: authCubit.firstNameController,
-              label: 'Enter phone number',
+              label: 'Enter phone number', isSecure: false,
             ),
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: 15.h,
             ),
             CustomTextField(
               isCenter:false,
@@ -113,12 +94,12 @@ class LoginCard extends StatelessWidget {
               controller: authCubit.usernameController,
               label: 'Enter password',
               suffixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: EdgeInsets.symmetric(horizontal: 15.0.h),
                 child: Icon(
-                  Icons.remove_red_eye,
-                  size: ScreenSizeUtil.screenWidth * 0.025,
+                  authCubit.passwordIcon,
+                  size: 8.sp,
                 ),
-              ),
+              ), isSecure: authCubit.isSecure,
             ),
             const SizedBox(
               height: 20,
@@ -130,19 +111,19 @@ class LoginCard extends StatelessWidget {
                   'Forget password?',
                   textAlign: TextAlign.end,
                   style: TextStyle(
-                      fontSize: ScreenSizeUtil.screenWidth * 0.02,
+                      fontSize: 6.sp,
                       color: Colors.black45,
                       fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: 20.h,
             ),
             ElevatedButton(
                 style: ButtonStyle(
                   minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 70)),
+                       MaterialStatePropertyAll(Size(150.w, 60.h)),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -157,7 +138,7 @@ class LoginCard extends StatelessWidget {
                   'Sign In',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: ScreenSizeUtil.screenWidth * 0.02,
+                      fontSize: 7.sp,
                       fontWeight: FontWeight.w400),
                 ))
           ],

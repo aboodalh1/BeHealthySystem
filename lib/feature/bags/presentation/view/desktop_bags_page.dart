@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qrreader/core/util/app_router.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/core/widgets/desktop_drawer.dart';
@@ -39,7 +38,9 @@ class DesktopBagsPage extends StatelessWidget {
                       Spacer(),
                       Container(width: ScreenSizeUtil.screenWidth*0.15,child: CustomSearchBar()),
                       Spacer(),
-                      Container(width: ScreenSizeUtil.screenWidth*0.12,child: CustomElevatedButton(title: 'Add Bags', onPressed: (){
+                      Container(width: ScreenSizeUtil.screenWidth*0.12,child: CustomElevatedButton(
+                          platform: 'desktop',
+                          title: 'Add Bags', onPressed: (){
                       navigateTo(context, AddBagsPageView(bagsCubit: bags,));
                       }, fill: true))
                     ],

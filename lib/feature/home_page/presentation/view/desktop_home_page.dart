@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/constant.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/home_page/presentation/manger/home_cubit.dart';
@@ -48,8 +49,9 @@ class DesktopHomePageBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const CustomSearchBar(),
-                  SizedBox(width: ScreenSizeUtil.screenWidth*0.18,),
+                  SizedBox(width: 20.w,),
                   CustomElevatedButton(
+                    platform:'desktop',
                     fill: true,
                     title: 'Generate QR',
                     onPressed: () {
@@ -73,121 +75,141 @@ class DesktopHomePageBody extends StatelessWidget {
                         BorderSide(width: 0.54, color: Colors.black),
                   ),
 
-                  columnSpacing: ScreenSizeUtil.screenWidth * 0.04,
-                  columns: const [
+                  columnSpacing: 10.w,
+                  columns:  [
                     DataColumn(
-                        label: Text(
-                      'Driver Name',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white),
-                    )),
+                        label: customText(
+                          label: 'Driver Name',
+                      color: Colors.black,
+                        ),),
                     DataColumn(
-                        label: Text('Driver ID',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white))),
+                        label: customText(
+                          label: 'Driver ID',
+                      color: Colors.black,
+                        ),),
                     DataColumn(
-                        label: Text('Customer Name',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white))),
+                        label: customText(
+                          label: 'Position',
+                      color: Colors.black,
+                        ),),
                     DataColumn(
-                        label: Text('Bag ID',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white))),
+                        label: customText(
+                          label: 'Bag ID',
+                      color: Colors.black,
+                        ),),
                     DataColumn(
-                        label: Text('Status',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white))),
+                        label: customText(
+                          label: 'Status',
+                      color: Colors.black,
+                        ),),
                     DataColumn(
-                        label: Text('Date',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white))),
-                  ],
+                        label: customText(
+                          label: 'Date',
+                      color: Colors.black,
+                        ),),
+            ],
                   rows:  [
                     DataRow(cells: [
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'User Name',
+                          'Ahmad',
                           style: TextStyle(
+                            fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'User ID',
+                          '154',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'Position',
+                          'Driver',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Position',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
+
                           textAlign: TextAlign.center,
                           'Position',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
+                      DataCell(Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: kOnWayColor,
+                            borderRadius: BorderRadius.circular(3)
+                        ),
+                        child: Text(
+                            textAlign: TextAlign.center,
+                            'On Way',
+                            style: TextStyle(
+                                fontSize: 4.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                      )),
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'Position',
+                          '2024-06-05',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                     ]),
                     DataRow(cells: [
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'User Name',
+                          'Omar',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'User ID',
+                          '02',
                           style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Text(
                           textAlign: TextAlign.center,
-                          'Position',
+                          'Store Employee',
                           style: TextStyle(
+                              fontSize: 4.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black))),
+                      DataCell(Text(
+                          textAlign: TextAlign.center,
+                          '158',
+                          style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                       DataCell(Container(
                         padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color: kAtStoreColor,
-                          borderRadius: BorderRadius.circular(3)
+                            color: kAtStoreColor,
+                            borderRadius: BorderRadius.circular(3)
                         ),
                         child: Text(
                             textAlign: TextAlign.center,
                             'At Store',
                             style: TextStyle(
+                                fontSize: 4.sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)),
                       )),
                       DataCell(Text(
+
                           textAlign: TextAlign.center,
-                          'Position',
+                          '2024-06-05 10:55',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Position',
-                          style: TextStyle(
+                              fontSize: 4.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black))),
                     ])
@@ -203,8 +225,8 @@ class DesktopHomePageBody extends StatelessWidget {
         label,
         textAlign: TextAlign.center,
         style: TextStyle(
-            color: color == Colors.black ? Colors.black : kPrimaryColor,
-            fontSize: ScreenSizeUtil.screenWidth < 1000 ? 16 : 14,
+            color: color == Colors.black ? Colors.white : kPrimaryColor,
+            fontSize: ScreenSizeUtil.screenWidth < 1000 ? 15 : 4.sp,
             fontWeight: FontWeight.w400),
       );
 }
@@ -223,22 +245,23 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 60.h,
       child: TextButton(
           onPressed: function,
           child: Row(
             children: [
               Icon(
                 icon,
+                size: 22.sp,
                 color: Colors.white,
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: 10.h,
               ),
               Text(
                 title,
-                style: const TextStyle(
-                    fontSize: 20,
+                style: TextStyle(
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w200,
                     color: Colors.white),
               )

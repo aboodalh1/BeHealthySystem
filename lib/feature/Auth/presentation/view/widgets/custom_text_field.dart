@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/constant.dart';
-import 'package:qrreader/core/util/screen_util.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -8,16 +8,18 @@ class CustomTextField extends StatelessWidget {
   final Widget ?suffixIcon;
   final bool isTablet;
   final bool isCenter;
+  final bool isSecure;
   const CustomTextField(
-      {super.key,required this.isTablet, required this.controller, required this.label, this.suffixIcon, required this.isCenter});
+      {super.key,required this.isTablet, required this.controller, required this.label, this.suffixIcon, required this.isCenter, required this.isSecure});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(23.6),
+      borderRadius: BorderRadius.circular(12.r),
       shadowColor: Colors.black,
       elevation: 4,
       child: TextFormField(
+        obscureText: isSecure,
           controller: controller,
           textAlign: isCenter? TextAlign.center:TextAlign.start,
           decoration: InputDecoration(
@@ -28,14 +30,14 @@ class CustomTextField extends StatelessWidget {
               hintStyle: TextStyle(
                   color: Colors.black.withOpacity(0.5),
                   fontWeight: FontWeight.w500,
-                  fontSize: isTablet? ScreenSizeUtil.screenWidth*0.015:16),
+                  fontSize: isTablet? 5.sp:4.sp),
               focusColor: Colors.blue,
               enabledBorder:  OutlineInputBorder(
-                borderRadius: BorderRadius.circular(23.6),
+                borderRadius: BorderRadius.circular(12.r),
                 borderSide: BorderSide(width: 0.58,color: Colors.black.withOpacity(.20)),
               ),
               focusedBorder:  OutlineInputBorder(
-                borderRadius: BorderRadius.circular(23.6),
+                borderRadius: BorderRadius.circular(12.r),
                 borderSide: BorderSide(width: 0.58,color: Colors.black.withOpacity(.20)),
               ),
               floatingLabelStyle: const TextStyle(color: Colors.blue)),

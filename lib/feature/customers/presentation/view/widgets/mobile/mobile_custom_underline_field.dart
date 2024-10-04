@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qrreader/constant.dart';
 
 import '../../../../../../core/util/screen_util.dart';
 
@@ -16,12 +18,14 @@ class MobileCustomUnderLineTextField extends StatelessWidget {
     ScreenSizeUtil.initSize(context);
     return Container(
       height: 40,
-      margin: EdgeInsets.symmetric(horizontal: 10,),
+      margin: EdgeInsets.symmetric(horizontal: 10.w,),
       child: TextFormField(
-        cursorRadius: Radius.circular(21),
-        style: TextStyle(fontSize:12,height: 3),
+        style: TextStyle(fontSize:10.sp),
+        cursorColor: kPrimaryColor,
         decoration:
-        InputDecoration(hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.022),border: UnderlineInputBorder()),
+        InputDecoration(
+          focusColor: kPrimaryColor,
+            hintText: hint, hintStyle:TextStyle(fontSize: 8.sp),border: UnderlineInputBorder()),
       ),
     );
   }

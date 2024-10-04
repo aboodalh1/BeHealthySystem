@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/view/widgets/tablet/tablet_custom_underline_field.dart';
 
@@ -13,10 +14,11 @@ class TabletAddCustomerInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: 430,
+      height: 440.h,
+      width: 390.w,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
-      margin: const EdgeInsets.all(10),
+      EdgeInsets.only(right: 5.w, left: 5.w, top: 20.h, bottom: 10.h),
+      margin:  EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(14.83)),
           border: Border.all(width: 2, color: kPrimaryColor),
@@ -25,7 +27,7 @@ class TabletAddCustomerInformationCard extends StatelessWidget {
         children: [
           Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.05,
+            size: 16.sp,
           ),
           const TabletCustomUnderLineTextField(hint: 'Full name'),
           const TabletCustomUnderLineTextField(hint: 'Customer Num'),
@@ -33,21 +35,21 @@ class TabletAddCustomerInformationCard extends StatelessWidget {
           const TabletCustomUnderLineTextField(
             hint: 'Address',
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: ScreenSizeUtil.screenWidth*0.08,
-                height: ScreenSizeUtil.screenWidth*0.025,
+                width: 30.w,
+                height: 25.h,
                 child: ElevatedButton(
                   onPressed: () {},
                   child:  Text(
                     'Subscriber',
                     style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.009,
+                        fontSize: 3.5.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),
@@ -57,12 +59,12 @@ class TabletAddCustomerInformationCard extends StatelessWidget {
                       MaterialStateProperty.all(kPrimaryColor)),
                 ),
               ),
-              const SizedBox(
-                width: 5,
+              SizedBox(
+                width: 5.w,
               ),
               Container(
-                width: ScreenSizeUtil.screenWidth*0.08,
-                height: ScreenSizeUtil.screenWidth*0.025,
+                width: 30.w,
+                height: 25.h,
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
@@ -72,7 +74,7 @@ class TabletAddCustomerInformationCard extends StatelessWidget {
                   child: Text(
                     'Subscriber',
                     style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.008,
+                        fontSize: 3.5.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),

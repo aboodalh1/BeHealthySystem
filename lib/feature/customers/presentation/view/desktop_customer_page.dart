@@ -30,7 +30,7 @@ class DesktopCustomerPage extends StatelessWidget {
                            Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              CustomElevatedButton(fill: true,
+                              CustomElevatedButton(fill: true,platform: 'desktop',
                                 title: 'Select', onPressed: () {},
                               ),
                             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
 import 'package:qrreader/feature/customers/presentation/view/widgets/tablet/tablet_add_customer_info_card.dart';
@@ -16,10 +17,11 @@ class TabletCustomerCard extends StatelessWidget {
     return customerCubit.isEdit
         ? TabletAddCustomerInformationCard()
         : Container(
-            height: 430,
+            height: 440.h,
+            width: 390.w,
             padding:
-                const EdgeInsets.only(right: 10, left: 10, top: 20, bottom: 10),
-            margin: const EdgeInsets.all(10),
+                EdgeInsets.only(right: 5.w, left: 5.w, top: 20.h, bottom: 10.h),
+            margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(14.83)),
                 border: Border.symmetric(
@@ -29,11 +31,11 @@ class TabletCustomerCard extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: ScreenSizeUtil.screenWidth * 0.03,
+                  height: 10.h,
                 ),
                 Icon(
                   Icons.person,
-                  size: ScreenSizeUtil.screenWidth * 0.05,
+                  size: 16.sp,
                 ),
                 const SizedBox(
                   height: 12.36,
@@ -41,23 +43,24 @@ class TabletCustomerCard extends StatelessWidget {
                 Text(
                   'Taim Hasan',
                   style: TextStyle(
-                      fontSize: ScreenSizeUtil.screenWidth * 0.02,
+                      fontSize: 6.sp,
                       fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(
-                  height: 5.21,
+                SizedBox(
+                  height: 5.21.h,
                 ),
                 Text(
                   'Number Cus: 096 6554 253',
                   style: TextStyle(
-                      fontSize: ScreenSizeUtil.screenWidth * 0.01,
+                      fontSize: 4.5.sp,
                       fontWeight: FontWeight.w400),
                 ),
                 SizedBox(
-                  height: ScreenSizeUtil.screenWidth * 0.01,
+                  height: 20.h,
                 ),
                 Container(
-                  height: ScreenSizeUtil.screenWidth * 0.018,
+                  height: 25.h,
+                  width: 35.w,
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
@@ -74,22 +77,22 @@ class TabletCustomerCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: ScreenSizeUtil.screenWidth * 0.015,
+                  height: 20.h,
                 ),
                 Text(
                   'Driver : Saad Ph',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: ScreenSizeUtil.screenWidth * 0.01,
+                    fontSize: 5.sp,
                   ),
                 ),
-                const SizedBox(
-                  height: 3,
+                SizedBox(
+                  height: 5.h,
                 ),
                 Text('Address : Damascus',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: ScreenSizeUtil.screenWidth * 0.009,
+                      fontSize: 5.sp,
                     )),
                 const Spacer(),
                 Row(
@@ -109,7 +112,7 @@ class TabletCustomerCard extends StatelessWidget {
                             child: Icon(
                           Icons.edit,
                           color: kPrimaryColor,
-                          size: ScreenSizeUtil.screenWidth * 0.01,
+                          size: 5.sp,
                         )),
                       ),
                     ),

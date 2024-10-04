@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/feature/customers/presentation/view/widgets/mobile/mobile_customer_grid.dart';
-
+import 'package:qrreader/feature/home_page/presentation/view/mobile_home_page.dart';
 import '../../../../constant.dart';
 import '../../../../core/util/screen_util.dart';
-import '../../../home_page/presentation/view/desktop_home_page.dart';
 import '../manger/customer_cubit.dart';
 
 class MobileCustomerPage extends StatelessWidget {
@@ -12,7 +12,6 @@ class MobileCustomerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
     return BlocProvider(
       create: (context) => CustomerCubit(),
       child: BlocConsumer<CustomerCubit, CustomerState>(
@@ -20,109 +19,63 @@ class MobileCustomerPage extends StatelessWidget {
           builder: (context, state) {
             CustomerCubit customerCubit = context.read();
             return Scaffold(
-              appBar: AppBar(),
-              drawer: Row(
-                children: [
-                  Container(
-                    color: kPrimaryColor,
-                    height: double.infinity,
-                    width: ScreenSizeUtil.screenWidth * 0.75,
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text('Be Healthy',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300)),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        CustomTextButton(
-                          function: () {},
-                          icon: Icons.home_filled,
-                          title: 'Home',
-                        ),
-                        CustomTextButton(
-                          function: () {},
-                          icon: Icons.person,
-                          title: 'Customers',
-                        ),
-                        CustomTextButton(
-                          function: () {},
-                          icon: Icons.report,
-                          title: 'Reports',
-                        ),
-                        CustomTextButton(
-                          function: () {},
-                          icon: Icons.shopping_bag_rounded,
-                          title: 'Bags',
-                        ),
-                        const Spacer(),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: Divider(
-                            height: 0.2,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: CustomTextButton(
-                            function: () {
-                              Navigator.of(context).pushNamed('sign_in_page');
-                            },
-                            title: "Sign out",
-                            icon: Icons.login,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+              appBar: AppBar(
+                backgroundColor: kPrimaryColor,
               ),
+              drawer: CustomMobileDrawer(),
               body: Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 30.0, right: 10),
+                    padding: EdgeInsets.only(top: 30.0.h, right: 10.w),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            SizedBox(
+                              height: 40,
+                              width: 160.w,
+                              child: TextFormField(
+                                  style: TextStyle(height: 1.2, fontSize: 10),
+                                  decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: 'Search',
+                                      hintStyle: TextStyle(height: 0.8),
+                                      border: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.black),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(11),
+                                          )))),
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
                             ElevatedButton(
-                              onPressed: (){},
+                              onPressed: () {},
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(kSecondaryColor),
+                                  shadowColor: MaterialStateProperty.all(null),
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.white),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.8),
+                                      side: BorderSide(color: Colors.black),
+                                      borderRadius:
+                                          BorderRadius.circular(8.8.r),
                                     ),
                                   )),
-                              child:  Text(
+                              child: Text(
                                 'Select',
                                 style: const TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w200, color: Colors.white),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black),
                               ),
                             )
                           ],
-                        ),
-                         SizedBox(
-                          height: ScreenSizeUtil.screenHeight * 0.07,
-                          width: ScreenSizeUtil.screenWidth * 0.36,
-                          child: TextFormField(
-                              style: TextStyle(height: 1.2,fontSize: 10),
-                              decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: 'Search',
-                                  hintStyle: TextStyle(height: 0.8),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(11),
-                                      )))),
                         ),
                         MobileCustomerGrid(
                           customerCubit: customerCubit,

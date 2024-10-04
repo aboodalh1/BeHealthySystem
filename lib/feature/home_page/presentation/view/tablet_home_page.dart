@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/tablet_widgets/tablet_custom_drawer.dart';
 import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_elevated_button.dart';
 import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_search_bar.dart';
 import '../../../../constant.dart';
@@ -12,7 +14,7 @@ class TabletHomePage extends StatelessWidget {
     ScreenSizeUtil.initSize(context);
     return Scaffold(
       appBar: AppBar(backgroundColor: kPrimaryColor,),
-      drawer: const DesktopDrawer(),
+      drawer: const TabletDrawer(),
       body:  TabletHomePageBody(),
     );
   }
@@ -27,7 +29,7 @@ class TabletHomePageBody extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0, right: 20),
+          padding: const EdgeInsets.only(top: 20.0, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -46,9 +48,8 @@ class TabletHomePageBody extends StatelessWidget {
               ),
               const CustomSearchBar(),
               const SizedBox(
-                height: 110,
+                height: 70,
               ),
-
               DataTable(
                   headingRowColor: MaterialStateProperty.all(kPrimaryColor),
                   headingTextStyle: TextStyle(color: Colors.white),
@@ -57,7 +58,7 @@ class TabletHomePageBody extends StatelessWidget {
                     BorderSide(width: 0.54, color: Colors.black),
                   ),
 
-                  columnSpacing: ScreenSizeUtil.screenWidth * 0.045,
+                  columnSpacing: 24.w,
                   columns: [
                     DataColumn(
                         label: TabletCustomText(title: 'Driver Name', isHeader: true,)),
@@ -124,7 +125,7 @@ class TabletCustomText extends StatelessWidget {
       title,
       style: TextStyle(
           fontWeight: FontWeight.w400, color:isHeader? Colors.white:Colors.black,
-          fontSize: ScreenSizeUtil.screenWidth*0.017
+          fontSize: 5.5.sp
       ),
     );
   }

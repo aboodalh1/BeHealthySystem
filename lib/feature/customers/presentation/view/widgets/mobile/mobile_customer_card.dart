@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
-import 'package:qrreader/feature/customers/presentation/view/widgets/tablet/tablet_add_customer_info_card.dart';
 
 import '../../../../../../constant.dart';
+import 'mobile_add_customer_info_card.dart';
 
 class MobileCustomerCard extends StatelessWidget {
   const MobileCustomerCard({
@@ -12,12 +13,12 @@ class MobileCustomerCard extends StatelessWidget {
   final CustomerCubit customerCubit;
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
-    return customerCubit.isEdit? TabletAddCustomerInformationCard(): Container(
-      height: 430,
+    return customerCubit.isEdit? MobileAddCustomerInformationCard(): Container(
+      height: 220.h,
+      width: 140.w,
       padding:
-      const EdgeInsets.only(right: 5, left: 5, top: 10, bottom: 10),
-      margin: const EdgeInsets.all(10),
+      EdgeInsets.only(right: 2.w, left: 2.w, top: 10.h, bottom: 10.h),
+      margin: EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(14.83)),
           border: Border.symmetric(
@@ -29,53 +30,54 @@ class MobileCustomerCard extends StatelessWidget {
           SizedBox(height: ScreenSizeUtil.screenWidth*0.02,),
            Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.04,
+            size: 20.sp,
           ),
-          const SizedBox(
-            height: 12.36,
+          SizedBox(
+            height: 12.36.h,
           ),
            Text(
             'Taim Hasan',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.025, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400),
           ),
-          const SizedBox(
-            height: 5.21,
+          SizedBox(
+            height: 5.21.h,
           ),
            Text(
             'Number Cus: 096 6554 253',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.018, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w400),
           ),
           SizedBox(
-            height: ScreenSizeUtil.screenWidth*0.01,
+            height: 20.sp
           ),
-          Container(
-            height: ScreenSizeUtil.screenWidth*0.04 ,
+          SizedBox(
+            height: 25.h ,
+            width: 50.w,
             child: ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(2)),
+                padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 2.w,vertical: 2.h)),
                   backgroundColor: MaterialStateProperty.all(kPrimaryColor)),
               child:  Text(
                 'Subscriber',
                 style: TextStyle(
-                    fontSize: ScreenSizeUtil.screenWidth*0.018,
+                    fontSize: 6.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
               ),
             ),
           ),
           SizedBox(
-            height: ScreenSizeUtil.screenWidth*0.015,
+            height: 20.h,
           ),
            Text(
             'Driver : Saad Ph',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.02,),
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 8.sp,),
           ),
-          const SizedBox(
-            height: 3,
+          SizedBox(
+            height: 3.h,
           ),
            Text('Address : Damascus',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.02,)),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 8.sp,)),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -85,10 +87,17 @@ class MobileCustomerCard extends StatelessWidget {
                 customerCubit.changeToEditCard();
                 },
                 child: Center(
-                    child: Icon(
-                      Icons.edit,
-                      color: kPrimaryColor,
-                      size: ScreenSizeUtil.screenWidth*0.02,
+                    child: Container(
+                      padding: EdgeInsets.all(2).w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: kPrimaryColor,width: 2)
+                      ),
+                      child: Icon(
+                        Icons.edit,
+                        color: kPrimaryColor,
+                        size: 10.sp,
+                      ),
                     )),
               ),
             ],

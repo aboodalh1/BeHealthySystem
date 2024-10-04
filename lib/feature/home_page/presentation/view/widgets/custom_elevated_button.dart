@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constant.dart';
 
@@ -15,17 +16,18 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 5.w,vertical: 4.h)),
           backgroundColor: MaterialStateProperty.all(fill?kSecondaryColor: const Color(0xffF5F5F5)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               side: !fill?const BorderSide(width: 0.6,color: kPrimaryColor):BorderSide.none,
-              borderRadius: BorderRadius.circular(fill?16.8:11),
+              borderRadius: BorderRadius.circular(fill?11.r:11.r),
             ),
           )),
       child:  Text(
         title,
         style: TextStyle(
-            fontSize: platform=='desktop'?18:12, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
+            fontSize: platform=='desktop'?4.sp:8.sp, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
       ),
     );
   }

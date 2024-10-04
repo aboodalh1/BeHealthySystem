@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
+import 'package:qrreader/feature/customers/presentation/view/widgets/new_customer_card.dart';
 
 import 'add_customer_info_card.dart';
 import 'customer_card.dart';
@@ -24,14 +26,15 @@ class CustomerGrid extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 10,
         shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 50,
-            mainAxisSpacing: 20,
-            childAspectRatio: 2.2 / 3),
-        padding: const EdgeInsets.all(20),
+            mainAxisExtent: 360,
+            crossAxisSpacing: 10.w,
+            mainAxisSpacing: 20.h,
+            ),
+        padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 5.w),
         itemBuilder: (context, index) =>
-        index == 0 ? const AddCustomerInformationCard() : CustomerCard(customerCubit: customerCubit,),
+        index == 0 ? const NewCustomerCard() : CustomerCard(customerCubit: customerCubit,),
       ),
     );
   },

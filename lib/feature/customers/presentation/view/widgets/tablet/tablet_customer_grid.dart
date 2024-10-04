@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
 
@@ -25,10 +26,11 @@ class TabletCustomerGrid extends StatelessWidget {
         itemCount: 10,
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 10,
-            childAspectRatio: 2.2 / 3),
+          crossAxisCount: 3,
+          mainAxisExtent: 320.h,
+          crossAxisSpacing: 5.w,
+          mainAxisSpacing: 20.h,
+            ),
         padding: const EdgeInsets.all(20),
         itemBuilder: (context, index) =>
         index == 0 ? const TabletAddCustomerInformationCard() : TabletCustomerCard(customerCubit: customerCubit,),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/constant.dart';
+import 'package:qrreader/core/util/app_router.dart';
+import 'package:qrreader/core/util/asset_loader.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/mobile_widgets/mobile_custom_text_field.dart';
 import '../../../../core/util/screen_util.dart';
 import '../../../home_page/presentation/view/home_page.dart';
 import '../manger/auth_cubit.dart';
-import 'widgets/custom_text_field.dart';
 
 class MobileSignInPage extends StatelessWidget {
   const MobileSignInPage({super.key});
@@ -17,17 +20,22 @@ class MobileSignInPage extends StatelessWidget {
       builder: (context, state) {
         AuthCubit authCubit = context.read<AuthCubit>();
         return Scaffold(
-            backgroundColor: const Color(0xffF8F9FB),
-            body: Center(
-              child: LoginCard(authCubit: authCubit),
+            backgroundColor: kPrimaryColor,
+            body: Column(
+              children: [
+                Image.asset(AssetsLoader.logo,width: 200.w,height: 200.h,),
+                Center(
+                  child: MobileLoginCard(authCubit: authCubit),
+                ),
+              ],
             ));
       },
     );
   }
 }
 
-class LoginCard extends StatelessWidget {
-  const LoginCard({
+class MobileLoginCard extends StatelessWidget {
+  const MobileLoginCard({
     super.key,
     required this.authCubit,
   });
@@ -38,13 +46,13 @@ class LoginCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      height: ScreenSizeUtil.screenHeight * 0.55,
-      width: ScreenSizeUtil.screenWidth * 0.50,
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+      height: 320.h,
+      width: 250.w,
+      padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 20.h),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: kPrimaryColor,
-        borderRadius: BorderRadius.circular(15.0),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.0.r),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -52,73 +60,78 @@ class LoginCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Sign In",
+              "Sign In to your account",
               style: TextStyle(
-                color: Colors.white,
-                  fontSize: ScreenSizeUtil.screenWidth * 0.035,
+                color: Colors.black87,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w400),
             ),
-            const SizedBox(
-              height: 15,
+             SizedBox(
+              height: 15.h,
             ),
-            CustomTextField(
+            MobileCustomTextField(
               isCenter:false,
-              isTablet: true,
+              isSecure: false,
               controller: authCubit.firstNameController,
               label: 'Enter phone number',
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
-            CustomTextField
-              ( isCenter:false,
-              isTablet: true,
+            MobileCustomTextField
+              (isCenter:false,
+              isSecure: authCubit.isSecure,
               controller: authCubit.usernameController,
               label: 'Enter password',
-              suffixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Icon(
-                  Icons.remove_red_eye,
-                  size: ScreenSizeUtil.screenWidth * 0.025,
+              suffixIcon: GestureDetector(
+                onTap: (){
+                authCubit.changeSecure();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                  child: Icon(authCubit.passwordIcon,size: 18.sp,)
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             Row(
               children: [
                 Spacer(),
-                Text(
-                  'Forget password?',
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                      fontSize: ScreenSizeUtil.screenWidth * 0.02,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500),
+                TextButton(
+                  onPressed: (){},
+                  child: Text(
+                    'Forget password?',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             ElevatedButton(
                 style: ButtonStyle(
                   minimumSize:
-                      const MaterialStatePropertyAll(Size(double.infinity, 70)),
+                      MaterialStatePropertyAll(Size(100.w, 40.h)),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(12.r)),
                   ),
                   backgroundColor:
-                      const MaterialStatePropertyAll(Color(0xffFFFFFF)),
+                      const MaterialStatePropertyAll(kPrimaryColor),
                 ),
-                onPressed: () {navigateTo(context, HomePage());},
+                onPressed: () {Navigator.of(context).pushNamed(AppRoutes.kHomePage);},
                 child: Text(
                   'Sign In',
                   style: TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: ScreenSizeUtil.screenWidth * 0.02,
+                      color: Colors.white,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ))
           ],

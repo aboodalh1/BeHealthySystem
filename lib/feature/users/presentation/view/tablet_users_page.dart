@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qrreader/core/widgets/desktop_drawer.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/tablet_widgets/tablet_custom_drawer.dart';
 import '../../../../constant.dart';
 import '../../../../core/util/screen_util.dart';
 import '../../../home_page/presentation/view/widgets/custom_elevated_button.dart';
@@ -12,7 +11,7 @@ class TabletUsersPage extends StatelessWidget {
     ScreenSizeUtil.initSize(context);
     return Scaffold(
       appBar: AppBar(backgroundColor: kPrimaryColor),
-      drawer: DesktopDrawer(),
+      drawer: TabletDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0, right: 20),

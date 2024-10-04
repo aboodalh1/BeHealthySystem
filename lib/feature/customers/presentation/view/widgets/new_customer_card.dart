@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constant.dart';
 
@@ -10,10 +11,11 @@ class NewCustomerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 430,
+      height: 440,
+      width: 390.w,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
-      margin: const EdgeInsets.all(10),
+      EdgeInsets.only(right: 5.w, left: 5.w, top: 20.h, bottom: 10.h),
+      margin:  EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(14.83)),
           border: Border.all(color: kPrimaryColor, width: 2),
@@ -26,20 +28,24 @@ class NewCustomerCard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   color: kSecondaryColor),
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 40,
-              ),
+              child:  IconButton(
+                onPressed: (){
+                },
+                icon:Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 15.sp
+                )
+                )
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
-            const Text(
+             Text(
               'Add a new customer',
               style: TextStyle(
                   color: kPrimaryColor,
-                  fontSize: 15,
+                  fontSize: 3.sp,
                   fontWeight: FontWeight.w500),
             )
           ],

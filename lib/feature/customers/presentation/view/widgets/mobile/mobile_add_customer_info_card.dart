@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
+import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_elevated_button.dart';
 
 import '../../../../../../constant.dart';
 import 'mobile_custom_underline_field.dart';
-
-
 
 class MobileAddCustomerInformationCard extends StatelessWidget {
   const MobileAddCustomerInformationCard({super.key});
@@ -13,18 +13,33 @@ class MobileAddCustomerInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return Container(
-      padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 18.32, bottom: 5),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(14.83)),
-          border: Border.all(width: 2, color: kPrimaryColor),
+      width: 140.w,
+      height: 220.h,
+      padding: EdgeInsets.only(right: 5.w, left: 5.w, top: 10, bottom: 5.h),
+      margin: EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(14.83)),
+          border: Border.symmetric(
+              horizontal: BorderSide(
+                width: 2,
+                color: kPrimaryColor,
+              ),
+              vertical: BorderSide(width: 5, color: kPrimaryColor)),
           color: Colors.white),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:[
+              Container(
+                  height: 15,
+                  width: 40.w,
+                  child: CustomElevatedButton(title: 'Save', onPressed: (){}, fill: true,))
+            ] ,
+          ),
           Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.05,
+            size: 20.sp,
           ),
           const MobileCustomUnderLineTextField(hint: 'Full name'),
           const MobileCustomUnderLineTextField(hint: 'Customer Num'),
@@ -32,46 +47,46 @@ class MobileAddCustomerInformationCard extends StatelessWidget {
           const MobileCustomUnderLineTextField(
             hint: 'Address',
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: ScreenSizeUtil.screenWidth*0.08,
-                height: ScreenSizeUtil.screenWidth*0.025,
+                height: 20,
+                width: 50.w,
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
-                      MaterialStateProperty.all(kPrimaryColor)),
-                  child:  Text(
+                          MaterialStateProperty.all(kPrimaryColor)),
+                  child: Text(
                     'Subscriber',
                     style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.009,
+                        fontSize: 6.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 5,
+              SizedBox(
+                width: 5.w,
               ),
               Container(
-                width: ScreenSizeUtil.screenWidth*0.08,
-                height: ScreenSizeUtil.screenWidth*0.025,
+                height: 20,
+                width: 50.w,
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
                       backgroundColor:
-                      MaterialStateProperty.all(kUnsubsicriber)),
+                          MaterialStateProperty.all(kUnsubsicriber)),
                   child: Text(
-                    'Subscriber',
+                    'Unsubscriber',
                     style: TextStyle(
-                        fontSize: ScreenSizeUtil.screenWidth*0.008,
+                        fontSize: 6.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w300),
                   ),

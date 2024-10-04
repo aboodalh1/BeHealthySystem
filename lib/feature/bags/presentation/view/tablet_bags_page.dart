@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
 import 'package:qrreader/core/util/screen_util.dart';
+import 'package:qrreader/feature/Auth/presentation/view/widgets/tablet_widgets/tablet_custom_drawer.dart';
 import 'package:qrreader/feature/bags/presentation/manger/bags_cubit.dart';
 import 'package:qrreader/feature/bags/presentation/view/add_bags_page/add_bags_page_view.dart';
 
@@ -25,84 +27,24 @@ class TabletBagsPage extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: kPrimaryColor,
             ),
-            drawer: Row(
-              children: [
-                Container(
-                  color: kPrimaryColor,
-                  height: double.infinity,
-                  width: ScreenSizeUtil.screenWidth * 0.3,
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Text('Be Healthy',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300)),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      CustomTextButton(
-                        function: () {},
-                        icon: Icons.home_filled,
-                        title: 'Home',
-                      ),
-                      CustomTextButton(
-                        function: () {},
-                        icon: Icons.person,
-                        title: 'Customers',
-                      ),
-                      CustomTextButton(
-                        function: () {},
-                        icon: Icons.report,
-                        title: 'Reports',
-                      ),
-                      CustomTextButton(
-                        function: () {},
-                        icon: Icons.shopping_bag_rounded,
-                        title: 'Bags',
-                      ),
-                      const Spacer(),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Divider(
-                          height: 0.2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: CustomTextButton(
-                          function: () {
-                            Navigator.of(context).pushNamed('sign_in_page');
-                          },
-                          title: "Sign out",
-                          icon: Icons.login,
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+            drawer: TabletDrawer(),
             body: Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 38.0, right: 20),
+                    padding: EdgeInsets.only(top: 38.0.h, right: 20.w),
                     child: Column(
                       children: [
                         Row(
                           children: [
                             SizedBox(
-                              width: ScreenSizeUtil.screenWidth * 0.25,
+                              width: 20.w,
                             ),
                             Spacer(),
                             TabletCustomSearchBar(),
                             Spacer(),
                             Container(
-                                width: ScreenSizeUtil.screenWidth * 0.18,
+                                width: 60.w,
                                 child: CustomElevatedButton(
                                     platform: 'tablet',
                                     title: 'Add Bags',

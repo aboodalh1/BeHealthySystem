@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
 import 'package:qrreader/feature/customers/presentation/view/widgets/add_customer_info_card.dart';
@@ -12,12 +13,12 @@ class CustomerCard extends StatelessWidget {
   final CustomerCubit customerCubit;
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
-    return customerCubit.isEdit? AddCustomerInformationCard(): Container(
-      height: 430,
+    return customerCubit.isEdit? AddCustomerInformationCard(customerCubit: customerCubit,): Container(
+      height: 440,
+      width: 390.w,
       padding:
-      const EdgeInsets.only(right: 10, left: 10, top: 35.32, bottom: 10),
-      margin: const EdgeInsets.all(10),
+      EdgeInsets.only(right: 5.w, left: 5.w, top: 20.h, bottom: 10.h),
+      margin:  EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(14.83)),
           border: Border.symmetric(
@@ -29,27 +30,28 @@ class CustomerCard extends StatelessWidget {
           SizedBox(height: ScreenSizeUtil.screenWidth*0.019,),
            Icon(
             Icons.person,
-            size: ScreenSizeUtil.screenWidth * 0.05,
+            size: 16.sp,
           ),
-          const SizedBox(
-            height: 12.36,
+          SizedBox(
+            height: 12.36.h,
           ),
            Text(
             'Taim Hasan',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.01, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 4.sp, fontWeight: FontWeight.w400),
           ),
-          const SizedBox(
-            height: 5.21,
+          SizedBox(
+            height: 5.21.h,
           ),
            Text(
-            'Number Cus: 096 6554 253',
-            style: TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.008, fontWeight: FontWeight.w400),
+            'Number: 9266554253',
+            style: TextStyle(fontSize: 3.sp, fontWeight: FontWeight.w400),
           ),
-          const SizedBox(
-            height: 18.27,
+          SizedBox(
+            height: 18.27.h,
           ),
-          Container(
-            height: ScreenSizeUtil.screenWidth*0.018 ,
+          SizedBox(
+            height: 25,
+            width: 26.w,
             child: ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
@@ -58,24 +60,24 @@ class CustomerCard extends StatelessWidget {
               child:  Text(
                 'Subscriber',
                 style: TextStyle(
-                    fontSize: ScreenSizeUtil.screenWidth*0.009,
+                    fontSize: 3.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
               ),
             ),
           ),
           SizedBox(
-            height: ScreenSizeUtil.screenWidth*0.015,
+            height: 20.h,
           ),
            Text(
             'Driver : Saad Ph',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.009,),
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 3.sp,),
           ),
-          const SizedBox(
-            height: 3,
+          SizedBox(
+            height: 3.h,
           ),
            Text('Address : Damascus',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: ScreenSizeUtil.screenWidth*0.009,)),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 3.sp,)),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

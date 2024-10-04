@@ -5,4 +5,6 @@ class AssetsLoader{
   static const String availableBag = 'assets/img/available_bag.png';
   static const String unAvailableBag = 'assets/img/unavailable_bag.png';
   static const String bags = 'assets/img/bags.png';
+  static const String logo = 'assets/img/logo.png';
+  static const String logoPng = 'assets/img/logo1.png';
 }

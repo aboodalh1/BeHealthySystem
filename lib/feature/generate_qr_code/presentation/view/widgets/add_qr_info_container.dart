@@ -56,7 +56,7 @@ class AddQrInfoContaier extends StatelessWidget {
                     isCenter:true,
                       isTablet: false,
                       controller: generateQrCubit.customerNameController,
-                      label: 'Customer Name'),
+                      label: 'Customer Name', isSecure: false,),
                 ),
                 const SizedBox(
                   width: 41,
@@ -67,7 +67,7 @@ class AddQrInfoContaier extends StatelessWidget {
                       isCenter:true,
                       isTablet: false,
                       controller: generateQrCubit.bagIDController,
-                      label: 'Bag ID'),
+                      label: 'Bag ID', isSecure: false,),
                 ),
               ],
             ),

@@ -26,12 +26,14 @@ class ServerFailure extends Failure {
         }
         return ServerFailure('Unexpected Error, Please try again!');
       default:
-        return ServerFailure(dioError.toString());
+        return ServerFailure('Check your connection');
     }
   }
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
-    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['message'] ?? 'Connection error');
+    if(statusCode==401) {
+      return ServerFailure('Session Expired');}
+    if (statusCode == 400 || statusCode == 403||statusCode==422) {
+      return ServerFailure('${response['message'] ?? "Connection error"} ');
 
     } else if (statusCode == 404) {
       return ServerFailure(response['message']);}
@@ -40,7 +42,7 @@ class ServerFailure extends Failure {
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {
-      return ServerFailure('Oops There was an Error, Please try again');
+      return ServerFailure(response['message'] ?? 'Something went wrong');
     }
   }
 }

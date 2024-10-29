@@ -6,3 +6,7 @@ const Color kAtStoreColor = Color(0xffFFF27B);
 const Color kUnsubsicriber = Color(0xffF9B44E);
 const Color kOnWayColor = Color(0xffFF5959);
 const Color kAtCustomerColor = Color(0xff7BFFC0);
+List<String>drivers = [];
+Map<String,int>mapDrivers = {};
+List<String> dropdownList = [];
+Map<String, num> customersMap = {};

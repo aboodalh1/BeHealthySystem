@@ -4,14 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../constant.dart';
 
 
-class CustomElevatedButton extends StatelessWidget {
-  CustomElevatedButton({
-    super.key, required this.title, required this.onPressed,  required this.fill, this.platform,
+class MobileCustomElevatedButton extends StatelessWidget {
+  const MobileCustomElevatedButton({
+    super.key, required this.title, required this.onPressed,  required this.fill
   });
   final String title;
   final bool fill;
   final VoidCallback onPressed;
-  String? platform='desktop';
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -28,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
       child:  Text(
         title,
         style: TextStyle(
-            fontSize: platform=='desktop'?18.sp:10.sp, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
+            fontSize: 12.sp, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
       ),
     );
   }

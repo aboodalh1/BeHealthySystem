@@ -16,18 +16,21 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
+        overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.25)),
+        foregroundColor: MaterialStateProperty.all(Colors.white),
         padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 5.w,vertical: 4.h)),
-          backgroundColor: MaterialStateProperty.all(fill?kSecondaryColor: const Color(0xffF5F5F5)),
+          backgroundColor: MaterialStateProperty.all(fill?kSecondaryColor: const Color(0xffFFFFFF)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              side: !fill?const BorderSide(width: 0.6,color: kPrimaryColor):BorderSide.none,
-              borderRadius: BorderRadius.circular(fill?11.r:11.r),
+              side: !fill?const BorderSide(width: 1.6,color: kPrimaryColor):BorderSide.none,
+              borderRadius: BorderRadius.circular(11.r),
             ),
           )),
       child:  Text(
         title,
         style: TextStyle(
-            fontSize: platform=='desktop'?4.sp:8.sp, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
+            fontSize: platform=='desktop'?4.sp:7.sp, fontWeight: FontWeight.w300, color: fill?Colors.white:kPrimaryColor),
       ),
     );
   }

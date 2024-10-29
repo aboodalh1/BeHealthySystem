@@ -14,11 +14,11 @@ class TabletCustomSearchBar extends StatelessWidget {
       height: 40,
       width: ScreenSizeUtil.screenWidth * 0.3,
       child: TextFormField(
-          cursorRadius: Radius.circular(21),
+          cursorRadius: const Radius.circular(21),
           cursorColor: kPrimaryColor,
           style: const TextStyle(height: 1,fontSize: 14),
           decoration: const InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 2,vertical: 0),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2,vertical: 0),
               filled: true,
               fillColor: Colors.white,
               prefixIcon: Padding(

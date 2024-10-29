@@ -1,52 +1,91 @@
 import 'dart:ui';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 import 'package:qrreader/core/widgets/custom_snack_bar/custom_snack_bar.dart';
+import 'package:qrreader/feature/customers/data/model/all_customers_model.dart'
+    as mm;
+import 'package:qrreader/feature/generate_qr_code/data/model/generate_qr_model.dart';
+import 'package:qrreader/feature/generate_qr_code/data/repos/generate_qr_repo.dart';
+import 'dart:html' as html;
+import 'dart:typed_data';
 
+import '../../../../constant.dart';
 part 'generate_qr_state.dart';
 
 class GenerateQrCubit extends Cubit<GenerateQrState> {
-  GenerateQrCubit() : super(GenerateQrcubitInitial());
-  final TextEditingController customerNameController = TextEditingController();
-  final TextEditingController bagIDController = TextEditingController();
+  GenerateQrCubit(this.generateQrRepo) : super(GenerateQrcubitInitial());
   bool isGenerateQr = false;
-  String ?qrData;
+  GenerateQrRepo generateQrRepo;
+  String? qrData;
   GlobalKey globalKey = GlobalKey();
-
-  Future<void> printContainer() async {
-    RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+  GenerateQrModel generateQrModel = GenerateQrModel(
+      code: 1,
+      message: 'message',
+      data: Data(
+          qrContent: 'qrContent',
+          customerName: 'customerName',
+          bagId: 1));
+  String qrContainer = '';
+  Future<void> printContainer({required String name,required num bagID}) async {
+    await Future.delayed(Duration(seconds: 2));
+    emit(PrintContainerLoadingState());
+    RenderRepaintBoundary boundary =
+    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     final image = await boundary.toImage(pixelRatio: 3.0);
     final byteData = await image.toByteData(format: ImageByteFormat.png);
     final pngBytes = byteData!.buffer.asUint8List();
     final pdf = pw.Document();
     final imagePdf = pw.MemoryImage(pngBytes);
-    final imagePdfPage = pw.Page(
-        build: (pw.Context context) => pw.Center(child: pw.Image(imagePdf)));
-    pdf.addPage(imagePdfPage);
-
-    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Center(child: pw.Image(imagePdf)),
+      ),
+    );
+    final Uint8List pdfBytes = await pdf.save();
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.AnchorElement(href: url)
+      ..setAttribute("download", "$name, $bagID.pdf")
+      ..click();
+    html.Url.revokeObjectUrl(url);
+    emit(PrintContainerSuccessState(message: 'Saved Successfully'));
   }
-  void generateQr(context){
-    if(customerNameController.text.isEmpty||bagIDController.text.isEmpty){
-        customSnackBar(context, 'Both field are required');
-    }
-    else {
-      qrData =
-      'Customer: ${customerNameController.text}, Bag ID: ${bagIDController
-          .text}';
+
+  void generateQrSecond(context) async{
+    if (selectedCustomer.isEmpty) {
+      customSnackBar(context, 'Select customer please!');
+    } else {
+      qrData = qrContainer;
       isGenerateQr = true;
       emit(GenerateNewQrState());
-    }}
-  void clearQr(){
-    customerNameController.clear();
-    bagIDController.clear();
-    isGenerateQr=false;
+      await printContainer(name: generateQrModel.data.customerName, bagID: generateQrModel.data.bagId);
+    }
+  }
+
+  void clearQr() {
+    selectedCustomer = '';
+    isGenerateQr = false;
     emit(ClearQrState());
   }
+
+  Future<void> generateQR(context,{required int i}) async {
+    emit(GenerateQrLoadingState());
+    var result = await generateQrRepo.generateQr(
+        customerID: customersMap[selectedCustomer.split(',').first.trim()]!);
+    result.fold((failure) {
+      emit(GenerateQrFailureState(error: failure.errMessage));
+    }, (response) {
+      generateQrModel = GenerateQrModel.fromJson(response.data);
+      qrContainer = generateQrModel.data.qrContent;
+      generateQrSecond(context);
+      emit(GenerateQrSuccessState(message: generateQrModel.message));
+    });
+  }
+
+  mm.AllCustomersModel customersModel =
+      mm.AllCustomersModel(code: 1, message: 'message', data: []);
+  String selectedCustomer = '';
 
 }

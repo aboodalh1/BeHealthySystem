@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qrreader/core/util/app_router.dart';
-import 'package:qrreader/core/util/asset_loader.dart';
+import 'package:qrreader/feature/home_page/presentation/manger/home_cubit.dart';
 
 import '../../../../../../constant.dart';
+import '../../../../../../core/util/api_service.dart';
+import '../../../../../../core/util/function/navigation.dart';
+import '../../sign_in_page.dart';
 
 
 class TabletDrawer extends StatelessWidget {
   const TabletDrawer({
-    super.key,
+    super.key, required this.homeCubit,
   });
+  final HomeCubit homeCubit;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,47 +24,69 @@ class TabletDrawer extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0.w,vertical: 15.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.0.w,vertical: 10.h),
                 child: Text("Be Healthy",style: TextStyle(
                   fontSize: 14.sp,color: Colors.white
                 ),),
               ),
+              Icon(Icons.person,size: 25.sp,color: Colors.white,),
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0.h),
+                child: Text('Hello, ${homeCubit.currentName}',style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 8.sp,
+                )),
+              ),
+              Spacer(flex: 1,),
               TabletCustomTextButton(
+                isSelected: homeCubit.currentIndex==0? true:false,
                 onPressed: (){
-                  Navigator.of(context).pushNamed(AppRoutes.kHomePage);
+                  homeCubit.changePage(index: 0);
+                  homeCubit.storeLastRoute('home');
                 },
                 icon: Icons.home_filled,
                 title: 'Home',
               ),
               TabletCustomTextButton(
+                isSelected: homeCubit.currentIndex==1? true:false,
                 onPressed: (){
-                  Navigator.of(context).pushNamed(AppRoutes.kCustomerPage);
+                  homeCubit.changePage(index: 1);
+                  homeCubit.storeLastRoute('customers');
+
                 },
                 icon: Icons.person,
                 title: 'Customers',
               ),
               TabletCustomTextButton(
+                isSelected: homeCubit.currentIndex==2? true:false,
                 onPressed: (){
-                  Navigator.of(context).pushNamed(AppRoutes.kUsersPage);
+                  homeCubit.changePage(index: 2);
+                   homeCubit.storeLastRoute('users');
+
                 },
                 icon: Icons.drive_eta_rounded,
                 title: 'Users',
               ),
               TabletCustomTextButton(
+                isSelected: homeCubit.currentIndex==3? true:false,
                 icon: Icons.report,
                 title: 'Reports',
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.kReportsPage);
+                  homeCubit.changePage(index: 3);
+                  homeCubit.storeLastRoute('reports');
+
                 },
               ),
               TabletCustomTextButton(
+                isSelected: homeCubit.currentIndex==4? true:false,
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.kBagsPage);
+                  homeCubit.changePage(index: 4);
+                  homeCubit.storeLastRoute('bags');
                 },
                 icon: Icons.shopping_bag_rounded,
                 title: 'Bags',
               ),
-              const Spacer(),
+              const Spacer(flex: 2,),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(
@@ -71,8 +96,19 @@ class TabletDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TabletCustomTextButton(
+                  isSelected: false,
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.kSignInPage);
+                    showDialog(context: context, builder: (context) => AlertDialog(
+                      content: Text('Do you want to sign out?',style: TextStyle(fontSize: 6.sp),),
+                      actions: [
+                        TextButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, child: Text('No',style: TextStyle(fontSize: 5.sp,color: Colors.black),)),
+                        TextButton(onPressed: (){
+                          homeCubit.signOut();
+                        }, child: Text('Yes',style: TextStyle(fontSize: 5.sp,color: kPrimaryColor),)),
+                      ],
+                    ));
                   },
                   title: "Sign out",
                   icon: Icons.login,
@@ -90,16 +126,19 @@ class TabletCustomTextButton extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback onPressed;
-
+  final bool isSelected;
   const TabletCustomTextButton(
       {super.key,
         required this.title,
         required this.icon,
-        required this.onPressed});
+        required this.onPressed, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        color: isSelected ? kSecondaryColor : Colors.transparent,
+      ),
       height: 50.h,
       child: TextButton(
           onPressed: onPressed ,

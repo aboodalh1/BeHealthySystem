@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../../constant.dart';
-import '../../../../../core/util/screen_util.dart';
 import '../../manger/generate_qr_cubit.dart';
 
 class GeneratedQrContainer extends StatelessWidget {
@@ -16,27 +15,27 @@ class GeneratedQrContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      key: generateQrCubit.globalKey,
-      child: Container(
-        height: ScreenSizeUtil.screenHeight * 0.6,
-        width: ScreenSizeUtil.screenWidth * 0.26,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.8),
-          border: Border.all(width: 3, color: kPrimaryColor),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 3),
-                blurRadius: 3.36,
-                color: Colors.black.withOpacity(0.25))
-          ],
-        ),
+    return Container(
+      height: 400,
+      width: 200.w,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.8),
+        border: Border.all(width: 3, color: kPrimaryColor),
+        boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, 3),
+              blurRadius: 3.36,
+              color: Colors.black.withOpacity(0.25))
+        ],
+      ),
+      child: RepaintBoundary(
+        key: generateQrCubit.globalKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: const BoxDecoration(color: Color(0xffF2F2F2)),
               height: 200,
               width: 200,
@@ -57,17 +56,17 @@ class GeneratedQrContainer extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Text(
                       textAlign: TextAlign.center,
-                      '${generateQrCubit.customerNameController.text}',
+                      generateQrCubit.selectedCustomer,
                       style:
-                      TextStyle(fontSize: 25.67, fontWeight: FontWeight.w400),
+                      const TextStyle(fontSize: 25.67, fontWeight: FontWeight.w400),
                     ),
                   ),
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                         textAlign: TextAlign.center,
-                        'Bag ID: ${generateQrCubit.bagIDController.text}',
-                        style: TextStyle(
+                        'Bag ID: ${generateQrCubit.generateQrModel.data.bagId}',
+                        style: const TextStyle(
                             fontSize: 25.67, fontWeight: FontWeight.w400)),
                   ),
                 ],

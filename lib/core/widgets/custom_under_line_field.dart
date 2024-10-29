@@ -7,21 +7,24 @@ import '../util/screen_util.dart';
 class CustomUnderLineTextField extends StatelessWidget {
   const CustomUnderLineTextField({
     super.key,
-    required this.hint,
+    required this.hint, required this.controller,
   });
 
   final String hint;
-
+final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
-    return Container(
+    return SizedBox(
       height: 40,
       width: 40.w,
       child: TextFormField(
+        controller: controller,
         cursorColor: kPrimaryColor,
         decoration:
-        InputDecoration(hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.008),border: UnderlineInputBorder()),
+        InputDecoration(
+            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryColor)),
+            hintText: hint, hintStyle:TextStyle(fontSize: ScreenSizeUtil.screenWidth*0.008),border: const UnderlineInputBorder()),
       ),
     );
   }

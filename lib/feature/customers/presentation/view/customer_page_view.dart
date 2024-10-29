@@ -5,6 +5,7 @@ import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.da
 import 'package:qrreader/feature/customers/presentation/view/desktop_customer_page.dart';
 import 'package:qrreader/feature/customers/presentation/view/mobile_customer_page.dart';
 import 'package:qrreader/feature/customers/presentation/view/tablet_customer_page.dart';
+import 'package:qrreader/feature/users/presentation/manger/user_cubit.dart';
 
 class CustomerPageView extends StatelessWidget {
   const CustomerPageView({super.key});
@@ -12,8 +13,8 @@ class CustomerPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
-    return BlocProvider(
-      create: (context) => CustomerCubit(),
+    return BlocListener<UserCubit, UserState>(
+      listener: (context, state) {},
       child: LayoutBuilder(builder: (context, constraints) {
         if (ScreenSizeUtil.screenWidth <= 600) {
           return BlocProvider.value(
@@ -24,12 +25,12 @@ class CustomerPageView extends StatelessWidget {
         if (ScreenSizeUtil.screenWidth <= 1000) {
           return BlocProvider.value(
             value: context.read<CustomerCubit>(),
-            child: TabletCustomerPage(),
+            child: const TabletCustomerPage(),
           );
         }
         return BlocProvider.value(
           value: context.read<CustomerCubit>(),
-          child: DesktopCustomerPage(),
+          child: const DesktopCustomerPage(),
         );
       }
       ),

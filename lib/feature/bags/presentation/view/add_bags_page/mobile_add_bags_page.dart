@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qrreader/feature/home_page/presentation/view/mobile_home_page.dart';
 
 import '../../../../../constant.dart';
 import '../../../../../core/util/asset_loader.dart';
@@ -20,9 +19,8 @@ class MobileAddBagsPage extends StatelessWidget {
         BagsCubit bagsCubit = context.read<BagsCubit>();
         return Scaffold(
             appBar: AppBar(
-              title: Text("Edit Bags Number",),
+              title: const Text("Edit Bags Number",),
               backgroundColor: kPrimaryColor,),
-            drawer:CustomMobileDrawer(),
             body:   Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,13 +78,17 @@ class MobileAddBagsPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 80.w),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                           width:50.w,
-                          child: CustomAddBagsButton(title: 'Done', onPressed: (){}, doneOrCancel: true)),
-                      Spacer(),
-                      Container(
+                          child: CustomAddBagsButton(
+                              fontSize: 7.sp,
+                              title: 'Done', onPressed: (){}, doneOrCancel: true)),
+                      const Spacer(),
+                      SizedBox(
                           width:50.w,
-                          child: CustomAddBagsButton(title: 'Cancel', onPressed: (){}, doneOrCancel: false, )),
+                          child: CustomAddBagsButton(
+                            fontSize: 7.sp,
+                            title: 'Cancel', onPressed: (){}, doneOrCancel: false, )),
                     ],
                   ),
                 )

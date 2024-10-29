@@ -15,19 +15,19 @@ class ReportsPage extends StatelessWidget {
     ScreenSizeUtil.initSize(context);
     return LayoutBuilder(builder: (context, constraints) {
       if (ScreenSizeUtil.screenWidth <= 600) {
-        return BlocProvider(
-          create: (context) => ReportsCubit(),
+        return BlocProvider.value(
+          value: context.read<ReportsCubit>(),
           child: const MobileReportsPage(),
         );
       }
       if (ScreenSizeUtil.screenWidth <= 1000) {
-        return BlocProvider(
-          create: (context) => ReportsCubit(),
+        return BlocProvider.value(
+          value: context.read<ReportsCubit>(),
           child: const TabletReportsPage(),
         );
       } else {
-        return BlocProvider(
-          create: (context) => ReportsCubit(),
+        return BlocProvider.value(
+          value: context.read<ReportsCubit>(),
           child: const DesktopReportsPage(),
         );
 

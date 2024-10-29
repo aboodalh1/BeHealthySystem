@@ -2,30 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/constant.dart';
-import 'package:qrreader/core/util/screen_util.dart';
+import 'package:qrreader/core/util/function/navigation.dart';
+import 'package:qrreader/core/widgets/desktop/desktop_custom_loading_indicator.dart';
+import 'package:qrreader/feature/generate_qr_code/presentation/view/generate_qr_page_view.dart';
 import 'package:qrreader/feature/home_page/presentation/manger/home_cubit.dart';
 import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_elevated_button.dart';
-import 'package:qrreader/feature/home_page/presentation/view/widgets/custom_search_bar.dart';
+import 'package:qrreader/feature/messages/presentation/view/messages_page_view.dart';
 
-import '../../../../core/widgets/desktop_drawer.dart';
+import '../../../../core/widgets/custom_snack_bar/custom_snack_bar.dart';
+import '../../../../core/widgets/desktop_status_cell.dart';
+import '../../../Auth/presentation/view/sign_in_page.dart';
 
 class DesktopHomePage extends StatelessWidget {
-  const DesktopHomePage({required BuildContext context, super.key});
+  const DesktopHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DesktopDrawer(),
-          BlocProvider(
-            create: (context) => HomeCubit(),
-            child: DesktopHomePageBody(),
-          ),
-        ],
-      ),
+      body: DesktopHomePageBody(),
     );
   }
 }
@@ -37,214 +32,177 @@ class DesktopHomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 50.0, right: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const CustomSearchBar(),
-                  SizedBox(width: 20.w,),
-                  CustomElevatedButton(
-                    platform:'desktop',
-                    fill: true,
-                    title: 'Generate QR',
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('generate_qr');
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: ScreenSizeUtil.screenHeight * 0.05,
-              ),
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    if (state is GetReadsFailureState) {
+      if (state.error == 'Session Expired') {
+        navigateAndFinish(context, const SignInPage());
+      }
+      customSnackBar(context, state.error);
+    }
+    if (state is GetReadsSuccessState ){
+      customSnackBar(context, state.message);
+    }
+    if (state is GetReadsFailureState) {
+      customSnackBar(context, state.error);
+    }
+  },
+  builder: (context, state) {
+    if (state is GetReadsLoadingState) {
+        return const DesktopLoadingIndicator();
+    }
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 50.0, right: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+            Text("Last Reads:",style: TextStyle(
+              fontSize: 8.sp
+            ),),
+                SizedBox(width: 152.w,),
+                IconButton(
+                  tooltip: 'Refresh',
+                    padding: EdgeInsets.zero,
+                    onPressed: (){
+                  context.read<HomeCubit>().getAllReads();
+                }, icon: Icon(Icons.refresh,size: 6.sp,color:kSecondaryColor,)),
 
-              const SizedBox(
-                height: 20,
-              ),
-              DataTable(
-                headingRowColor: MaterialStateProperty.all(kPrimaryColor),
-                  headingTextStyle: TextStyle(color: Colors.white),
-                  border: const TableBorder(
-                    horizontalInside:
-                        BorderSide(width: 0.54, color: Colors.black),
-                  ),
+                IconButton(
+                    tooltip: 'Notifications',
+                    onPressed: (){
+                  navigateTo(context, const MessagePageView());
+                }, icon: Icon(Icons.notifications,size: 6.sp,color:kSecondaryColor,)),
+                SizedBox(width: 5.w,),
+                CustomElevatedButton(
+                  platform:'desktop',
+                  fill: true,
+                  title: 'Generate QR',
+                  onPressed: () {
+                  navigateTo(context, const GenerateQrPageViw());
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            DataTable(
+              headingRowColor: MaterialStateProperty.all(kPrimaryColor),
+                headingTextStyle: const TextStyle(color: Colors.white),
+                border: const TableBorder(
+                  horizontalInside:
+                      BorderSide(width: 0.54, color: Colors.black),
+                ),
 
-                  columnSpacing: 10.w,
-                  columns:  [
-                    DataColumn(
-                        label: customText(
-                          label: 'Driver Name',
-                      color: Colors.black,
-                        ),),
-                    DataColumn(
-                        label: customText(
-                          label: 'Driver ID',
-                      color: Colors.black,
-                        ),),
-                    DataColumn(
-                        label: customText(
-                          label: 'Position',
-                      color: Colors.black,
-                        ),),
-                    DataColumn(
-                        label: customText(
-                          label: 'Bag ID',
-                      color: Colors.black,
-                        ),),
-                    DataColumn(
-                        label: customText(
-                          label: 'Status',
-                      color: Colors.black,
-                        ),),
-                    DataColumn(
-                        label: customText(
-                          label: 'Date',
-                      color: Colors.black,
-                        ),),
-            ],
-                  rows:  [
-                    DataRow(cells: [
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Ahmad',
-                          style: TextStyle(
-                            fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          '154',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Driver',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-
-                          textAlign: TextAlign.center,
-                          'Position',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: kOnWayColor,
-                            borderRadius: BorderRadius.circular(3)
-                        ),
-                        child: Text(
-                            textAlign: TextAlign.center,
-                            'On Way',
-                            style: TextStyle(
-                                fontSize: 4.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black)),
-                      )),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          '2024-06-05',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Omar',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          '02',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          'Store Employee',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Text(
-                          textAlign: TextAlign.center,
-                          '158',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                      DataCell(Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: kAtStoreColor,
-                            borderRadius: BorderRadius.circular(3)
-                        ),
-                        child: Text(
-                            textAlign: TextAlign.center,
-                            'At Store',
-                            style: TextStyle(
-                                fontSize: 4.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black)),
-                      )),
-                      DataCell(Text(
-
-                          textAlign: TextAlign.center,
-                          '2024-06-05 10:55',
-                          style: TextStyle(
-                              fontSize: 4.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
-                    ])
-                  ])
-            ],
-          ),
+                columnSpacing: 10.w,
+                columns:  [
+                  DataColumn(
+                      label: customText(
+                        label: 'User name',
+                    color: Colors.black,
+                      ),),
+                  DataColumn(
+                      label: customText(
+                        label: 'Position',
+                    color: Colors.black,
+                      ),),
+                  DataColumn(
+                      label: customText(
+                        label: 'Customer Name',
+                    color: Colors.black,
+                      ),),
+                  DataColumn(
+                      label: customText(
+                        label: 'Bag ID',
+                    color: Colors.black,
+                      ),),
+                  DataColumn(
+                      label: customText(
+                        label: 'Status',
+                    color: Colors.black,
+                      ),),
+                  DataColumn(
+                      label: customText(
+                        label: 'Date',
+                    color: Colors.black,
+                      ),),
+          ],
+                rows: List.generate(context.read<HomeCubit>().homeReadsModel.data.length,
+                        (i) =>DataRow(cells: [
+                          DataCell(SizedBox(
+                            width:200,
+                            child: Text(
+                              style: TextStyle(fontSize: 3.8.sp),
+                                overflow: TextOverflow.ellipsis,
+                                context.read<HomeCubit>().homeReadsModel.data[i].userName),
+                          )),
+                          DataCell(Text(
+                              style: TextStyle(fontSize: 3.8.sp),
+                              context.read<HomeCubit>().homeReadsModel.data[i].userRole)),
+                          DataCell(SizedBox(
+                            width: 200,
+                            child: Text(
+                                style: TextStyle(fontSize: 3.8.sp),
+                                overflow: TextOverflow.ellipsis,
+                                context.read<HomeCubit>().homeReadsModel.data[i].customerName),
+                          )),
+                          DataCell(Text(
+                              style: TextStyle(fontSize: 3.8.sp),
+                              '${context.read<HomeCubit>().homeReadsModel.data[i].bagId}')),
+                          DataCell(DesktopStatusCell(
+                            title: context.read<HomeCubit>().homeReadsModel.data[i].status=='stored_stage_1'||context.read<HomeCubit>().homeReadsModel.data[i].status=='stored_stage_2'? 'At Store':
+                            context.read<HomeCubit>().homeReadsModel.data[i].status=='shipping'?'On Way':'Delivered',
+                            color: context.read<HomeCubit>().homeReadsModel.data[i].status=='stored_stage_1' ||context.read<HomeCubit>().homeReadsModel.data[i].status=='stored_stage_2'?kAtStoreColor:
+                            context.read<HomeCubit>().homeReadsModel.data[i].status=='shipping'?kOnWayColor:kAtCustomerColor,
+                          )),
+                          DataCell(Text(
+                              style: TextStyle(fontSize: 3.8.sp),
+                              context.read<HomeCubit>().homeReadsModel.data[i].date)),
+                        ]) ))
+          ],
         ),
       ),
     );
+  },
+);
   }
 
   Text customText({required String label, color}) => Text(
         label,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
             color: color == Colors.black ? Colors.white : kPrimaryColor,
-            fontSize: ScreenSizeUtil.screenWidth < 1000 ? 15 : 4.sp,
+            fontSize: 4.sp,
             fontWeight: FontWeight.w400),
       );
 }
+
+
 
 class CustomTextButton extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback function;
-
+  final bool isSelected;
   const CustomTextButton(
       {super.key,
       required this.title,
       required this.icon,
-      required this.function});
+      required this.function, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: isSelected? kSecondaryColor:kPrimaryColor
+      ),
       height: 60.h,
       child: TextButton(
           onPressed: function,

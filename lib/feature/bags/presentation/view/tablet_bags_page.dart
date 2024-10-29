@@ -1,15 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qrreader/core/util/function/navigation.dart';
 import 'package:qrreader/core/util/screen_util.dart';
-import 'package:qrreader/feature/Auth/presentation/view/widgets/tablet_widgets/tablet_custom_drawer.dart';
+import 'package:qrreader/core/widgets/tablet/tablet_custom_loading_indicator.dart';
 import 'package:qrreader/feature/bags/presentation/manger/bags_cubit.dart';
 import 'package:qrreader/feature/bags/presentation/view/add_bags_page/add_bags_page_view.dart';
-
 import '../../../../constant.dart';
-import '../../../../core/widgets/tablet/tablet_custom_search_field.dart';
-import '../../../home_page/presentation/view/desktop_home_page.dart';
+import '../../../../core/widgets/custom_snack_bar/custom_snack_bar.dart';
 import '../../../home_page/presentation/view/widgets/custom_elevated_button.dart';
 import '../widgets/bags_item.dart';
 
@@ -20,61 +20,149 @@ class TabletBagsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return BlocConsumer<BagsCubit, BagsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is GetBagsNumberFailure) {
+          customSnackBar(context, state.error);
+        }
+      },
       builder: (context, state) {
+        if (state is GetBagsNumberLoading) {
+       return const TabletLoadingIndicator();
+        }
         BagsCubit bagsCubit = context.read<BagsCubit>();
         return Scaffold(
-            appBar: AppBar(
-              backgroundColor: kPrimaryColor,
-            ),
-            drawer: TabletDrawer(),
-            body: Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 38.0.h, right: 20.w),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Spacer(),
-                            TabletCustomSearchBar(),
-                            Spacer(),
-                            Container(
-                                width: 60.w,
-                                child: CustomElevatedButton(
-                                    platform: 'tablet',
-                                    title: 'Add Bags',
-                                    onPressed: () {
-                                      navigateTo(context, AddBagsPageView(
-                                          bagsCubit: bagsCubit));
-                                     },
-                                    fill: true))
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: ScreenSizeUtil.screenHeight * 0.9,
-                          child: GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 10,
-                              shrinkWrap: true,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4, mainAxisExtent: 180),
-                              itemBuilder: (context, index) =>
-                              index % 2 == 0
-                                  ? AvailableBagsItem()
-                                  : UnAvailableBagsItem()),
-                        )
-                      ],
+            body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.only(top: 38.0.h, right: 20.w),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10.w),
+                      width: 125.w,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.r),
+                          border: Border.all(color: kPrimaryColor, width: 0.5)),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                bagsCubit.getAllBags(state: 'all');
+                              },
+                              child: Container(
+                                  height: 40,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                    color: !bagsCubit.isAvailable && !bagsCubit.isUnavailable? kSecondaryColor:null,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15.r),
+                                        bottomLeft: Radius.circular(15.r))),
+                                child: Center(
+                                  child: Text(
+                                    "All",
+                                    style: TextStyle(
+                                        color: !bagsCubit.isAvailable &&
+                                            !bagsCubit.isUnavailable
+                                            ? Colors.white
+                                            : kSecondaryColor, fontSize: 5.sp),
+                                  ),
+                                ),
+                              )),
+                          const Spacer(),
+                          const VerticalDivider(
+                            width: 2,
+                            color: kPrimaryColor,
+                          ),
+                          const Spacer(),
+                          GestureDetector(
+                              onTap: () {
+                                bagsCubit.getAllBags(state: 'available');
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 40.w,
+                                decoration: BoxDecoration(
+                                    color: bagsCubit.isAvailable
+                                        ? kSecondaryColor
+                                        : null),
+                                child: Center(
+                                  child: Text(
+                                    "Available",
+                                    style: TextStyle(
+                                        color: bagsCubit.isAvailable
+                                            ? Colors.white
+                                            : kSecondaryColor, fontSize: 5.sp),
+                                  ),
+                                ),
+                              )),
+                          const Spacer(),
+                          const VerticalDivider(
+                            width: 2,
+                            color: kUnsubsicriber,
+                          ),
+                          const Spacer(),
+                          GestureDetector(
+                              onTap: () {
+                                bagsCubit.getAllBags(state: 'unavailable');
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 42.w,
+                                decoration: BoxDecoration(
+                                  color: bagsCubit.isUnavailable
+                                      ? kUnsubsicriber
+                                      : null,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15.r),
+                                      bottomRight: Radius.circular(15.r)),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Unavailable",
+                                    style: TextStyle(
+                                        color:  bagsCubit.isUnavailable
+                                            ? Colors.white
+                                            : kUnsubsicriber, fontSize: 5.sp),
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
-                )));
+                    const Spacer(),
+                    SizedBox(
+                        width: 80.w,
+                        child: CustomElevatedButton(
+                            platform: 'tablet',
+                            title: 'Edit bags number',
+                            onPressed: () {
+                              navigateTo(context,
+                                  AddBagsPageView(bagsCubit: bagsCubit));
+                            },
+                            fill: true))
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: bagsCubit.allBagsModel.data.length,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4, mainAxisExtent: 180),
+                    itemBuilder: (context, index) => AvailableBagsItem(
+                          bagsCubit: bagsCubit,
+                          index: index,
+                        ))
+              ],
+            ),
+          ),
+        ));
       },
     );
   }

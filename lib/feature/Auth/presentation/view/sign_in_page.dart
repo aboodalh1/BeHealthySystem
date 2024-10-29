@@ -15,7 +15,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSizeUtil.initSize(context);
     return LayoutBuilder(builder: (context, constraints) {
-      if (ScreenSizeUtil.screenWidth <= 600) {
+      if (ScreenSizeUtil.screenWidth <= 700) {
         return BlocProvider(
           create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
           child: const MobileSignInPage(),

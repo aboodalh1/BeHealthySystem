@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qrreader/core/util/screen_util.dart';
 import 'package:qrreader/feature/customers/presentation/manger/customer_cubit.dart';
 
 import 'tablet_add_customer_info_card.dart';
@@ -14,27 +13,23 @@ class TabletCustomerGrid extends StatelessWidget {
   final CustomerCubit customerCubit;
   @override
   Widget build(BuildContext context) {
-    ScreenSizeUtil.initSize(context);
+
     return BlocConsumer<CustomerCubit, CustomerState>(
   listener: (context, state) {},
   builder: (context, state) {
-    return SizedBox(
-      height: 0.56*4*ScreenSizeUtil.screenHeight,
-      width: 1000,
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 10,
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisExtent: 320.h,
-          crossAxisSpacing: 5.w,
-          mainAxisSpacing: 20.h,
-            ),
-        padding: const EdgeInsets.all(20),
-        itemBuilder: (context, index) =>
-        index == 0 ? const TabletAddCustomerInformationCard() : TabletCustomerCard(customerCubit: customerCubit,),
-      ),
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: customerCubit.allCustomersModel.data.length+1,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 5.w,
+        mainAxisSpacing: 20.h,
+        childAspectRatio: 2.w / 7.2.h,
+          ),
+      padding: const EdgeInsets.all(20),
+      itemBuilder: (context, index) =>
+      index == 0 ?  TabletAddCustomerInformationCard(customerCubit: customerCubit) : TabletCustomerCard(customerCubit: customerCubit,index:index-1),
     );
   },
 );

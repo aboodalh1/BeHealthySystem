@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:qrreader/feature/bags/presentation/manger/bags_cubit.dart';
 
 import '../../../../constant.dart';
 import '../../../../core/util/asset_loader.dart';
 
 class AvailableBagsItem extends StatelessWidget {
   const AvailableBagsItem({
-    super.key,
+    super.key, required this.bagsCubit, required this.index,
   });
-
+  final BagsCubit bagsCubit;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return bagsCubit.allBagsModel.data[index].isAvailable?Column(
       children: [
         Image.asset(AssetsLoader.availableBag),
-        SizedBox(height: 5,),
-        Text('ID: 314423 \n Available',textAlign: TextAlign.center,style: TextStyle(color: kPrimaryColor),),
+        const SizedBox(height: 5,),
+        Text('ID: ${bagsCubit.allBagsModel.data[index].id} \n Available',textAlign: TextAlign.center,style: const TextStyle(color: kPrimaryColor),),
       ],
-    );
+    ):UnAvailableBagsItem(bagsCubit: bagsCubit,index: index,);
   }
 }
+
 class UnAvailableBagsItem extends StatelessWidget {
   const UnAvailableBagsItem({
-    super.key,
+    super.key, required this.bagsCubit, required this.index,
   });
-
+ final BagsCubit bagsCubit;
+ final int index;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Image.asset(AssetsLoader.unAvailableBag),
-        SizedBox(height: 10,),
-        Text('ID: 314423 \n Available',textAlign: TextAlign.center,style: TextStyle(color: kUnsubsicriber),),
+        const SizedBox(height: 10,),
+         Text('ID: ${bagsCubit.allBagsModel.data[index].id} \n Unavailable',textAlign: TextAlign.center,style: const TextStyle(color: kUnsubsicriber),),
       ],
     );
   }

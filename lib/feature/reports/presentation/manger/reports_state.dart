@@ -5,7 +5,13 @@ sealed class ReportsState {}
 final class ReportsInitial extends ReportsState {}
 
 final class GetReportsLoadingState extends ReportsState {}
-
+//===================Zak=================
+// Define a new state for future date errors
+class FutureDateErrorState extends ReportsState {
+  final String message;
+  FutureDateErrorState(this.message);
+}
+//===================Zak=================
 final class GetReportsSuccessState extends ReportsState {
   final String message;
   GetReportsSuccessState({required this.message});

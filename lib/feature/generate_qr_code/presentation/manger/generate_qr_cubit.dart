@@ -23,44 +23,49 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
   GenerateQrModel generateQrModel = GenerateQrModel(
       code: 1,
       message: 'message',
-      data: Data(
-          qrContent: 'qrContent',
-          customerName: 'customerName',
-          bagId: 1));
+      data:
+          Data(qrContent: 'qrContent', customerName: 'customerName', bagId: 1));
   String qrContainer = '';
-  Future<void> printContainer({required String name,required num bagID}) async {
-    await Future.delayed(Duration(seconds: 2));
-    emit(PrintContainerLoadingState());
-    RenderRepaintBoundary boundary =
-    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    final image = await boundary.toImage(pixelRatio: 3.0);
-    final byteData = await image.toByteData(format: ImageByteFormat.png);
-    final pngBytes = byteData!.buffer.asUint8List();
-    final pdf = pw.Document();
-    final imagePdf = pw.MemoryImage(pngBytes);
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Center(child: pw.Image(imagePdf)),
-      ),
-    );
-    final Uint8List pdfBytes = await pdf.save();
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final anchor = html.AnchorElement(href: url)
-      ..setAttribute("download", "$name, $bagID.pdf")
-      ..click();
-    html.Url.revokeObjectUrl(url);
-    emit(PrintContainerSuccessState(message: 'Saved Successfully'));
+  Future<void> printContainer(
+      {required String name, required num bagID}) async {
+    emit(PrintContainerLoadingState()); // Emit loading state
+    try {
+      RenderRepaintBoundary boundary =
+          globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      final image = await boundary.toImage(pixelRatio: 3.0);
+      final byteData = await image.toByteData(format: ImageByteFormat.png);
+      final pngBytes = byteData!.buffer.asUint8List();
+      final pdf = pw.Document();
+      final imagePdf = pw.MemoryImage(pngBytes);
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) => pw.Center(child: pw.Image(imagePdf)),
+        ),
+      );
+      final Uint8List pdfBytes = await pdf.save();
+      final blob = html.Blob([pdfBytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute("download", "$name, $bagID.pdf")
+        ..click();
+      html.Url.revokeObjectUrl(url);
+      emit(PrintContainerSuccessState(message: 'Saved Successfully'));
+    } catch (e) {
+      emit(GenerateQrFailureState(
+          error: e.toString())); // Emit error state in case of failure
+    }
   }
 
-  void generateQrSecond(context) async{
+  void generateQrSecond(context) async {
     if (selectedCustomer.isEmpty) {
       customSnackBar(context, 'Select customer please!');
     } else {
       qrData = qrContainer;
       isGenerateQr = true;
       emit(GenerateNewQrState());
-      await printContainer(name: generateQrModel.data.customerName, bagID: generateQrModel.data.bagId);
+      await printContainer(
+          name: generateQrModel.data.customerName,
+          bagID: generateQrModel.data.bagId);
     }
   }
 
@@ -70,7 +75,7 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
     emit(ClearQrState());
   }
 
-  Future<void> generateQR(context,{required int i}) async {
+  Future<void> generateQR(context, {required int i}) async {
     emit(GenerateQrLoadingState());
     var result = await generateQrRepo.generateQr(
         customerID: customersMap[selectedCustomer.split(',').first.trim()]!);
@@ -87,5 +92,4 @@ class GenerateQrCubit extends Cubit<GenerateQrState> {
   mm.AllCustomersModel customersModel =
       mm.AllCustomersModel(code: 1, message: 'message', data: []);
   String selectedCustomer = '';
-
 }

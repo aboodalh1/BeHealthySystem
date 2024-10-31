@@ -51,6 +51,7 @@ dependencies:
   shared_preferences: ^2.2.3
   url_launcher_web: ^2.3.3
   url_launcher: ^6.3.1
+  syncfusion_flutter_pdf: ^21.2.4  #Zak
 
 dev_dependencies:
   flutter_test:

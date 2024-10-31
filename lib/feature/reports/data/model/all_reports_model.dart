@@ -29,11 +29,11 @@ class Data {
     required this.table,
   });
   late final Cards cards;
-  late final List<Table> table;
+  late final List<TableModel> table;
 
   Data.fromJson(Map<String, dynamic> json){
     cards = Cards.fromJson(json['cards']);
-    table = List.from(json['table']).map((e)=>Table.fromJson(e)).toList();
+    table = List.from(json['table']).map((e)=>TableModel.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -72,16 +72,16 @@ class Cards {
     return _data;
   }
 }
-
-class Table {
-  Table({
+//====Zak==== change the name of model
+class TableModel {
+  TableModel({
     required this.customerName,
     required this.data,
   });
   late final String customerName;
   late final List<TableData> data;
 
-  Table.fromJson(Map<String, dynamic> json){
+  TableModel.fromJson(Map<String, dynamic> json){
     customerName = json['customer_name'];
     data = List.from(json['data']).map((e)=>TableData.fromJson(e)).toList();
   }
